@@ -11,6 +11,7 @@ resource "oci_core_subnet" "test_subnet" {
     cidr_block = "192.168.1.0/24"
     display_name = "test_subnet"
     vcn_id = oci_core_vcn.test_vcn.id
+    route_table_id = oci_core_route_table.test_route_table.id
     security_list_ids = [ oci_core_security_list.test_seclist.id ]
 }
 
@@ -41,4 +42,14 @@ resource "oci_core_internet_gateway" "test_internet_gateway" {
     #Required
     compartment_id = var.compartment_ocid
     vcn_id = oci_core_vcn.test_vcn.id
+}
+
+resource "oci_core_route_table" "test_route_table" {
+    compartment_id = var.compartment_ocid
+    vcn_id = oci_core_vcn.test_vcn.id
+    route_rules {
+      destination_type = "CIDR_BLOCK"
+      destination = "0.0.0.0/0"
+      network_entity_id = oci_core_internet_gateway.test_internet_gateway.id
+    }
 }
