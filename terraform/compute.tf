@@ -19,3 +19,14 @@ resource "oci_core_instance_configuration" "project_instance_configuration" {
   }
   display_name = "${var.project_name}_instance_config"
 }
+
+resource "oci_load_balancer_load_balancer" "project_load_balancer" {
+    compartment_id = oci_identity_compartment.project_compartment.id
+    display_name = "${var.project_name}_load_balancer"
+    shape = "flexible"
+    shape_details {
+        maximum_bandwidth_in_mbps=var.load_balancer_bandwidth_in_mbps
+        minimum_bandwidth_in_mbps=var.load_balancer_bandwidth_in_mbps
+    }
+    subnet_ids = [ oci_core_subnet.project_subnet.id ]
+}
