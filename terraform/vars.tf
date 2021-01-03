@@ -14,8 +14,6 @@ variable private_key_path {
 variable fingerprint {
 }
 
-variable compartment_ocid {
-}
 variable project_name {
   default="demo"
 }

@@ -1,12 +1,12 @@
 resource "oci_core_vcn" "test_vcn" {
-    compartment_id = var.compartment_ocid
+    compartment_id = oci_identity_compartment.project_compartment.id
 
     cidr_block = "192.168.0.0/16"
     display_name = "test_vcn"
 }
 
 resource "oci_core_subnet" "test_subnet" {
-    compartment_id = var.compartment_ocid
+    compartment_id = oci_identity_compartment.project_compartment.id
 
     cidr_block = "192.168.1.0/24"
     display_name = "test_subnet"
@@ -16,7 +16,7 @@ resource "oci_core_subnet" "test_subnet" {
 }
 
 resource "oci_core_security_list" "test_seclist" {
-  compartment_id = var.compartment_ocid
+  compartment_id = oci_identity_compartment.project_compartment.id
   vcn_id = oci_core_vcn.test_vcn.id
   ingress_security_rules {
     stateless = false
@@ -39,13 +39,12 @@ resource "oci_core_security_list" "test_seclist" {
 }
 
 resource "oci_core_internet_gateway" "test_internet_gateway" {
-    #Required
-    compartment_id = var.compartment_ocid
+    compartment_id = oci_identity_compartment.project_compartment.id
     vcn_id = oci_core_vcn.test_vcn.id
 }
 
 resource "oci_core_route_table" "test_route_table" {
-    compartment_id = var.compartment_ocid
+    compartment_id = oci_identity_compartment.project_compartment.id
     vcn_id = oci_core_vcn.test_vcn.id
     route_rules {
       destination_type = "CIDR_BLOCK"
