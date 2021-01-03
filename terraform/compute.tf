@@ -8,7 +8,7 @@ resource "oci_core_instance_configuration" "project_instance_configuration" {
         assign_public_ip = true
       }
       metadata = {
-        ssh_authorized_keys = file("./vm_ssh_key.pub")
+        ssh_authorized_keys = file(var.vm_ssh_key)
       }
       shape = var.shape
       source_details {

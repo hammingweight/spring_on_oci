@@ -1,19 +1,15 @@
 # vars.tf
-variable region {
-}
+variable region {}
 
-variable tenancy_ocid {
-}
+variable tenancy_ocid {}
 
-variable user_ocid {
-}
+variable user_ocid {}
 
-variable private_key_path {
-    default="./api_key.pem"
-}
+variable private_key_path {}
 
-variable fingerprint {
-}
+variable fingerprint {}
+
+variable vm_ssh_key {}
 
 variable shape {
     default="VM.Standard.E2.1.Micro"
