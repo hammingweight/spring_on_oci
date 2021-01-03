@@ -11,9 +11,6 @@ variable user_ocid {
 variable private_key_path {
 }
 
-variable private_key_password {
-}
-
 variable fingerprint {
 }
 
