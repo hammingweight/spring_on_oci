@@ -11,18 +11,10 @@ variable fingerprint {}
 
 variable vm_ssh_key {}
 
-variable shape {
-    default="VM.Standard.E2.1.Micro"
-}
+variable shape {}
 
-variable image_ocid {
-    default = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaf6gm7xvn7rhll36kwlotl4chm25ykgsje7zt2b4w6gae4yqfdfwa"
-}
+variable image_ocid {}
 
-variable webservice_port {
-    default = 8080
-}
+variable webservice_port {}
 
-variable project_name {
-    default = "demo"
-}
+variable project_name {}
