@@ -16,4 +16,6 @@ variable fingerprint {
 
 variable compartment_ocid {
 }
-
+variable project_name {
+  default="demo"
+}
