@@ -52,8 +52,8 @@ resource "oci_core_security_list" "project_security_list" {
         source = "0.0.0.0/0"
         protocol = "6"
         tcp_options {
-            max = 8000
-            min = 8000
+            max = var.webservice_port
+            min = var.webservice_port
         }
     }
     ingress_security_rules {
