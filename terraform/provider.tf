@@ -5,4 +5,5 @@ provider "oci" {
   region = var.region
   fingerprint = var.fingerprint
   private_key_path = var.private_key_path
+  private_key_password = var.private_key_password
 }
