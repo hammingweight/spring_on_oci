@@ -33,4 +33,10 @@ resource "oci_core_instance_pool" "project_instance_pool" {
     }
     size = var.number_of_instances
     display_name = "${var.project_name}_instance_pool"
+    load_balancers {
+        backend_set_name = oci_load_balancer_backend_set.project_backend_set.name
+        load_balancer_id = oci_load_balancer_load_balancer.project_load_balancer.id
+        port = 8000
+        vnic_selection = "PrimaryVnic"
+    }
 }
