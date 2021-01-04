@@ -36,7 +36,7 @@ resource "oci_core_instance_pool" "project_instance_pool" {
     load_balancers {
         backend_set_name = oci_load_balancer_backend_set.project_backend_set.name
         load_balancer_id = oci_load_balancer_load_balancer.project_load_balancer.id
-        port = 8000
+        port = var.webservice_port
         vnic_selection = "PrimaryVnic"
     }
 }

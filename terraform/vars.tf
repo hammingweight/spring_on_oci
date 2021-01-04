@@ -19,6 +19,8 @@ variable image_ocid {}
 
 variable load_balancer_bandwidth_in_mbps {}
 
+variable load_balancer_port {}
+
 variable webservice_port {}
 
 variable webservice_healthcheck_url {}

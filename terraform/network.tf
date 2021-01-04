@@ -61,6 +61,15 @@ resource "oci_core_security_list" "project_security_list" {
         source = "0.0.0.0/0"
         protocol = "6"
         tcp_options {
+            max = var.load_balancer_port
+            min = var.load_balancer_port
+        }
+    }
+    ingress_security_rules {
+        stateless = false
+        source = "0.0.0.0/0"
+        protocol = "6"
+        tcp_options {
             max = 22
             min = 22
         }

@@ -26,6 +26,6 @@ resource "oci_load_balancer_listener" "project_load_balancer_listener" {
     default_backend_set_name = oci_load_balancer_backend_set.project_backend_set.name
     load_balancer_id = oci_load_balancer_load_balancer.project_load_balancer.id
     name = "${var.project_name}_load_balancer_listener"
-    port = 8000
+    port = var.load_balancer_port
     protocol = "HTTP"
 }
