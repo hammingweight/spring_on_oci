@@ -24,3 +24,7 @@ variable webservice_port {}
 variable webservice_healthcheck_url {}
 
 variable project_name {}
+
+variable ad_number {}
+
+variable number_of_instances {}
