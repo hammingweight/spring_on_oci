@@ -21,4 +21,6 @@ variable load_balancer_bandwidth_in_mbps {}
 
 variable webservice_port {}
 
+variable webservice_healthcheck_url {}
+
 variable project_name {}

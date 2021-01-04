@@ -1,5 +1,5 @@
 **/.terraform*
 **/terraform.tfstate*
 terraform/tf_vars.sh
-**/api_key.pem
+**/oci_api_key.pem
 **/vm_ssh_key*
