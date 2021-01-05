@@ -1,0 +1,3 @@
+ansible_ssh_user: opc
+ansible_ssh_private_key_file: ../keys/vm_ssh_key
+
