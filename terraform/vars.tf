@@ -30,3 +30,5 @@ variable project_name {}
 variable ad_number {}
 
 variable number_of_instances {}
+
+variable database_admin_password {}
