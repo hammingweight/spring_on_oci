@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  gather_facts: false
+  vars_files:
+    - vars.yml
+
+  tasks:
+  - name: open firewall for http
+    firewalld:
+      port: "{{ web_service_port }}/tcp"
+      state: enabled
+      permanent: true
+
+  - name: install java 11
+    yum:
+      name: java-11-openjdk-devel
+      state: latest
