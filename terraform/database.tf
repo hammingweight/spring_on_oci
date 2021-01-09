@@ -8,3 +8,16 @@ resource "oci_database_autonomous_database" "project_autonomous_database" {
     display_name = "${var.project_name}_adb"
     is_free_tier = true
 }
+
+resource "oci_database_autonomous_database_wallet" "project_autonomous_database_wallet" {
+    #Required
+    autonomous_database_id = oci_database_autonomous_database.project_autonomous_database.id
+    password = var.database_wallet_password
+    base64_encode_content = true
+    generate_type = "SINGLE"
+}
+
+resource "local_file" "database_wallet_zip" {
+    content = oci_database_autonomous_database_wallet.project_autonomous_database_wallet.content
+    filename = "database_wallet.zip.asc"
+}

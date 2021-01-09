@@ -32,3 +32,5 @@ variable ad_number {}
 variable number_of_instances {}
 
 variable database_admin_password {}
+
+variable database_wallet_password {}
