@@ -10,7 +10,6 @@
     firewalld:
       port: "{{ web_service_port }}/tcp"
       state: enabled
-      permanent: true
 
   - name: install java 11
     yum:

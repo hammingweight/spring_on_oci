@@ -1,0 +1,11 @@
+---
+- hosts: all
+  gather_facts: false
+  vars_files:
+    - vars.yml
+
+  tasks:
+  - name: copy jar
+    copy:
+      src: ../spring_web_service/demo/target/demo-0.0.1-SNAPSHOT.jar
+      dest: ~/demo.jar
