@@ -9,3 +9,16 @@
     copy:
       src: ../spring_web_service/demo/target/demo-0.0.1-SNAPSHOT.jar
       dest: ~/demo.jar
+
+  - name: copy service definition
+    copy:
+      src: templates/demo.service
+      dest: /etc/systemd/system
+    become: True
+
+  - name: start service
+    systemd:
+      name: demo.service
+      state: started
+      enabled: True
+    become: True
