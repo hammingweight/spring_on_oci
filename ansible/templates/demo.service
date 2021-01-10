@@ -3,7 +3,7 @@ Description = Demo Service
 After = network.target
 
 [Service]
-ExecStart = /usr/bin/java /home/opc/demo.jar
+ExecStart = /usr/bin/java -jar /home/opc/demo.jar
 ExecStop = kill -9 $(ps aux | grep demo.jar | grep -v grep | awk '{print $2'})
 User = opc
 
