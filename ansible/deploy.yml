@@ -7,7 +7,7 @@
   tasks:
   - name: copy jar
     copy:
-      src: ../spring_web_service/demo/target/demo-0.0.1-SNAPSHOT.jar
+      src: ../spring_web_service/target/demo-0.0.1-SNAPSHOT.jar
       dest: ~/demo.jar
 
   - name: copy service definition
