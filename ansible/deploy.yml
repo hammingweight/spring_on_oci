@@ -5,24 +5,6 @@
     - vars.yml
 
   tasks:
-  - name: copy jar
-    copy:
-      src: ../spring_web_service/target/demo-0.0.1-SNAPSHOT.jar
-      dest: ~/demo.jar
-
-  - name: copy service definition
-    copy:
-      src: templates/demo.service
-      dest: /etc/systemd/system
-    become: True
-
-  - name: start service
-    systemd:
-      name: demo.service
-      state: started
-      enabled: True
-    become: True
-
   - name: copy the wallet
     copy:
       src: ../terraform/database_wallet.zip.asc
@@ -46,3 +28,21 @@
     file:
       path: ~/database_wallet.zip.asc
       state: absent
+
+  - name: copy jar
+    copy:
+      src: ../spring_web_service/target/demo-0.0.1-SNAPSHOT.jar
+      dest: ~/demo.jar
+
+  - name: copy service definition
+    copy:
+      src: templates/demo.service
+      dest: /etc/systemd/system
+    become: True
+
+  - name: start service
+    systemd:
+      name: demo.service
+      state: started
+      enabled: True
+    become: True
