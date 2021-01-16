@@ -5,30 +5,6 @@
     - vars.yml
 
   tasks:
-  - name: copy the wallet
-    copy:
-      src: ../terraform/database_wallet.zip.asc
-      dest: ~/database_wallet.zip.asc
-
-  - name: base64 decode the wallet
-    shell: base64 -d ~/database_wallet.zip.asc > ~/database_wallet.zip
-
-  - name: create a directory for the wallet
-    file:
-      path: ~/database_wallet
-      state: directory
-
-  - name: unzip the wallet
-    unarchive:
-      src: ~/database_wallet.zip
-      remote_src: True
-      dest: ~/database_wallet
-
-  - name: clean up the base64-encoded wallet file
-    file:
-      path: ~/database_wallet.zip.asc
-      state: absent
-
   - name: copy jar
     copy:
       src: ../spring_web_service/target/demo-0.0.1-SNAPSHOT.jar
