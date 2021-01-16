@@ -22,3 +22,30 @@
       state: started
       enabled: True
     become: True
+
+  - name: copy the wallet
+    copy:
+      src: ../terraform/database_wallet.zip.asc
+      dest: ~/database_wallet.zip.asc
+
+  - name: base54 decode the wallet
+    shell: base64 -d ~/database_wallet.zip.asc > ~/database_wallet.zip
+
+  - name: create a directory for the wallet
+    file:
+      path: ~/database_wallet
+      state: directory
+
+  - name: unzip the wallet
+    unarchive:
+      src: ~/database_wallet.zip
+      remote_src: True
+      dest: ~/database_wallet
+
+  - name: clean up the wallet files
+    file:
+      path: ~/database_wallet.zip.asc
+      state: absent
+  - file:
+      path: ~/database_wallet.zip
+      state: absent
