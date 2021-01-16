@@ -15,3 +15,8 @@
     yum:
       name: java-11-openjdk-devel
       state: latest
+
+  - name: install sqlcl
+    yum:
+      name: sqlcl
+      state: latest
