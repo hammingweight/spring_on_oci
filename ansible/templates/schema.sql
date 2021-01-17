@@ -3,3 +3,5 @@ CREATE TABLE person(
     num_visits NUMBER,
     PRIMARY KEY(name)
 );
+
+EXIT

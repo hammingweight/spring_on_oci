@@ -1,0 +1,16 @@
+---
+- hosts: all
+  gather_facts: false
+  vars_files:
+    - vars.yml
+
+  tasks:
+  - block:
+    - name: copy schema.sql
+      copy:
+        src: ./templates/schema.sql
+        dest: ~/schema.sql
+
+    - name: create schema
+      shell: /opt/oracle/sqlcl/bin/sql -cloudconfig /home/opc/database_wallet.zip -L 'admin/{{ database_admin_password }}@{{ project_name }}_medium' @/home/opc/schema.sql
+    run_once: True
