@@ -13,4 +13,9 @@
 
     - name: create schema
       shell: /opt/oracle/sqlcl/bin/sql -cloudconfig /home/opc/database_wallet.zip -L 'admin/{{ database_admin_password }}@{{ project_name }}_medium' @/home/opc/schema.sql
+
+    - name: delete schema.sql
+      file:
+        path: ~/schema.sql
+        state: absent
     run_once: True

@@ -7,7 +7,7 @@
   tasks:
   - name: open firewall for http
     firewalld:
-      port: "{{ web_service_port }}/tcp"
+      port: "{{ webservice_port }}/tcp"
       state: enabled
     become: True
 
