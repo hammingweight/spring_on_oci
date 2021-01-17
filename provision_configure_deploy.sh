@@ -1,4 +1,5 @@
 cd terraform
+terraform destroy --auto-approve
 terraform apply --auto-approve
 
 cd ../ansible
