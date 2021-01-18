@@ -1,4 +1,5 @@
 cd terraform
+source tf_vars.sh
 terraform destroy --auto-approve
 terraform apply --auto-approve
 
