@@ -3,7 +3,6 @@ spring:
     url: jdbc:oracle:thin:@demo_medium?TNS_ADMIN=/home/opc/database_wallet
     username: admin
     password: "{{ database_admin_password }}"
-    initialization-mode: always
 
 management:
   endpoint:
