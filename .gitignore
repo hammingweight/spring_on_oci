@@ -1,6 +1,5 @@
 **/.terraform*
 **/terraform.tfstate*
-terraform/database_wallet.zip
 terraform/database_wallet.zip.asc
 terraform/tf_vars.sh
 **/oci_api_key.pem
