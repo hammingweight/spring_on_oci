@@ -11,8 +11,8 @@ resource "oci_core_vcn" "project_vcn" {
 # We'll create a subnet within the VCN for our VMs.
 # We'll also need to specify how traffic is to be routed and
 # security rules for the subnet.
-resource "oci_core_subnet" "project_subnet" {
-    display_name = "${var.project_name}_subnet"
+resource "oci_core_subnet" "project_instance_subnet" {
+    display_name = "${var.project_name}_instance_subnet"
     compartment_id = oci_identity_compartment.project_compartment.id
     cidr_block = "192.168.0.0/24"
     vcn_id = oci_core_vcn.project_vcn.id

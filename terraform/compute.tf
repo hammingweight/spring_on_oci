@@ -29,7 +29,7 @@ resource "oci_core_instance_pool" "project_instance_pool" {
     instance_configuration_id = oci_core_instance_configuration.project_instance_configuration.id
     placement_configurations {
         availability_domain = data.oci_identity_availability_domains.ads.availability_domains[var.ad_number - 1].name
-        primary_subnet_id = oci_core_subnet.project_subnet.id
+        primary_subnet_id = oci_core_subnet.project_instance_subnet.id
     }
     size = var.number_of_instances
     display_name = "${var.project_name}_instance_pool"
