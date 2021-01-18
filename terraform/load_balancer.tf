@@ -7,7 +7,7 @@ resource "oci_load_balancer_load_balancer" "project_load_balancer" {
         maximum_bandwidth_in_mbps=var.load_balancer_bandwidth_in_mbps
         minimum_bandwidth_in_mbps=var.load_balancer_bandwidth_in_mbps
     }
-    subnet_ids = [ oci_core_subnet.project_instance_subnet.id ]
+    subnet_ids = [ oci_core_subnet.project_load_balancer_subnet.id ]
 }
 
 resource "oci_load_balancer_backend_set" "project_backend_set" {

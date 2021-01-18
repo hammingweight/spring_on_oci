@@ -8,19 +8,27 @@ resource "oci_core_vcn" "project_vcn" {
     display_name = "${var.project_name}_vcn"
 }
 
-# We'll create a subnet within the VCN for our VMs.
+# We'll create subnets within the VCN for our VMs and LB.
 # We'll also need to specify how traffic is to be routed and
-# security rules for the subnet.
+# security rules for the subnets.
 resource "oci_core_subnet" "project_instance_subnet" {
     display_name = "${var.project_name}_instance_subnet"
     compartment_id = oci_identity_compartment.project_compartment.id
     cidr_block = "192.168.0.0/24"
     vcn_id = oci_core_vcn.project_vcn.id
     route_table_id = oci_core_route_table.project_route_table.id
-    security_list_ids = [ oci_core_security_list.project_security_list.id ]
+    security_list_ids = [ oci_core_security_list.project_instance_security_list.id ]
 }
 
-# Define a route table that has one rule that routes all traffic via an
+resource "oci_core_subnet" "project_load_balancer_subnet" {
+    display_name = "${var.project_name}_load_balancer_subnet"
+    compartment_id = oci_identity_compartment.project_compartment.id
+    cidr_block = "192.168.1.0/24"
+    vcn_id = oci_core_vcn.project_vcn.id
+    route_table_id = oci_core_route_table.project_route_table.id
+    security_list_ids = [ oci_core_security_list.project_load_balancer_security_list.id ]
+}
+
 # internet gateway.
 resource "oci_core_route_table" "project_route_table" {
     display_name = "${var.project_name}_route_table"
@@ -43,26 +51,20 @@ resource "oci_core_internet_gateway" "project_internet_gateway" {
 # Allow traffic from the internet to connect via TCP (protocol=6)
 # on ports 22 (SSH) and the HTTP port used by our web service.
 # We also let through all traffic that originates from the VMs.
-resource "oci_core_security_list" "project_security_list" {
-    display_name = "${var.project_name}_security_rules"
+resource "oci_core_security_list" "project_instance_security_list" {
+    display_name = "${var.project_name}_instance_security_rules"
     compartment_id = oci_identity_compartment.project_compartment.id
     vcn_id = oci_core_vcn.project_vcn.id
     ingress_security_rules {
         stateless = false
-        source = "0.0.0.0/0"
+        # Allow traffic to the web service port only from the LB
+        # Change this to 0.0.0.0/0 if you want to test the individual
+        # VM web services.
+        source = "192.168.1.0/24"
         protocol = "6"
         tcp_options {
             max = var.webservice_port
             min = var.webservice_port
-        }
-    }
-    ingress_security_rules {
-        stateless = false
-        source = "0.0.0.0/0"
-        protocol = "6"
-        tcp_options {
-            max = var.load_balancer_port
-            min = var.load_balancer_port
         }
     }
     ingress_security_rules {
@@ -81,3 +83,28 @@ resource "oci_core_security_list" "project_security_list" {
     }
 }
 
+# The only ingress traffic allowed to the LB is to the LB port (80).
+# The only egress traffic is to the web services running on the VMs.
+resource "oci_core_security_list" "project_load_balancer_security_list" {
+    display_name = "${var.project_name}_load_balancer_security_rules"
+    compartment_id = oci_identity_compartment.project_compartment.id
+    vcn_id = oci_core_vcn.project_vcn.id
+    ingress_security_rules {
+        stateless = false
+        source = "0.0.0.0/0"
+        protocol = "6"
+        tcp_options {
+            max = var.load_balancer_port
+            min = var.load_balancer_port
+        }
+    }
+    egress_security_rules {
+        stateless = false
+        destination = "192.168.0.0/24"
+        protocol = "6"
+        tcp_options {
+            max = var.webservice_port
+            min = var.webservice_port
+        }
+    }
+}
