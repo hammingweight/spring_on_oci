@@ -3,6 +3,11 @@
   gather_facts: false
 
   tasks:
+  - name: populate the application.yml file
+    template:
+      src: ./templates/application.yml
+      dest: ../spring_web_service/src/main/resources
+
   - name: package spring application
     shell: cd ../spring_web_service && ./mvnw clean package
 
