@@ -11,6 +11,7 @@ resource "oci_load_balancer_load_balancer" "project_load_balancer" {
 }
 
 resource "oci_load_balancer_backend_set" "project_backend_set" {
+    name = "${var.project_name}_backend_set"
     health_checker {
         protocol = "HTTP"
 
@@ -18,8 +19,17 @@ resource "oci_load_balancer_backend_set" "project_backend_set" {
         url_path = var.webservice_healthcheck_url
     }
     load_balancer_id = oci_load_balancer_load_balancer.project_load_balancer.id
-    name = "${var.project_name}_backend_set"
     policy = "ROUND_ROBIN"
+}
+
+resource "oci_load_balancer_certificate" "project_certificate" {
+    certificate_name = "${var.project_name}_certificate"
+    load_balancer_id = oci_load_balancer_load_balancer.project_load_balancer.id
+    private_key = file("../keys/lb_key.pem")
+    public_certificate = file("../keys/lb_cert.pem")
+    lifecycle {
+        create_before_destroy = true
+    }
 }
 
 resource "oci_load_balancer_listener" "project_load_balancer_listener" {
@@ -28,4 +38,8 @@ resource "oci_load_balancer_listener" "project_load_balancer_listener" {
     name = "${var.project_name}_load_balancer_listener"
     port = var.load_balancer_port
     protocol = "HTTP"
+    ssl_configuration {
+        certificate_name = oci_load_balancer_certificate.project_certificate.certificate_name
+        verify_peer_certificate = false
+    }
 }
