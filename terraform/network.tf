@@ -3,7 +3,7 @@
 resource "oci_core_vcn" "vcn" {
     # We're going to create the network in the compartment created by the
     # iam.tf module.
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
     cidr_block = "192.168.0.0/16"
     display_name = "${var.project_name}_vcn"
 }
@@ -11,14 +11,14 @@ resource "oci_core_vcn" "vcn" {
 # Create an internet gateway for the VCN.
 resource "oci_core_internet_gateway" "internet_gateway" {
     display_name = "${var.project_name}_gateway"
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
     vcn_id = oci_core_vcn.vcn.id
 }
 
 # All outgoing traffic will be routed via the internet gateway
 resource "oci_core_route_table" "route_table" {
     display_name = "${var.project_name}_route_table"
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
     vcn_id = oci_core_vcn.vcn.id
     route_rules {
       destination_type = "CIDR_BLOCK"
@@ -32,7 +32,7 @@ resource "oci_core_route_table" "route_table" {
 # We also let through all traffic that originates from the VMs.
 resource "oci_core_security_list" "instance_security_list" {
     display_name = "${var.project_name}_instance_security_rules"
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
     vcn_id = oci_core_vcn.vcn.id
     ingress_security_rules {
         stateless = false
@@ -67,7 +67,7 @@ resource "oci_core_security_list" "instance_security_list" {
 # security rules for the subnets.
 resource "oci_core_subnet" "instance_subnet" {
     display_name = "${var.project_name}_instance_subnet"
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
     cidr_block = "192.168.0.0/24"
     vcn_id = oci_core_vcn.vcn.id
     route_table_id = oci_core_route_table.route_table.id
@@ -78,7 +78,7 @@ resource "oci_core_subnet" "instance_subnet" {
 # The only egress traffic is to the web services running on the VMs.
 resource "oci_core_security_list" "load_balancer_security_list" {
     display_name = "${var.project_name}_load_balancer_security_rules"
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
     vcn_id = oci_core_vcn.vcn.id
     ingress_security_rules {
         stateless = false
@@ -102,7 +102,7 @@ resource "oci_core_security_list" "load_balancer_security_list" {
 
 resource "oci_core_subnet" "load_balancer_subnet" {
     display_name = "${var.project_name}_load_balancer_subnet"
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
     cidr_block = "192.168.1.0/24"
     vcn_id = oci_core_vcn.vcn.id
     route_table_id = oci_core_route_table.route_table.id

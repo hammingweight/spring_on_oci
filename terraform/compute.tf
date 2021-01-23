@@ -1,9 +1,9 @@
 resource "oci_core_instance_configuration" "instance_configuration" {
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
     instance_details {
         instance_type = "compute"
         launch_details {
-            compartment_id = oci_identity_compartment.project_compartment.id
+            compartment_id = oci_identity_compartment.compartment.id
             create_vnic_details {
                 assign_public_ip = true
             }
@@ -21,11 +21,11 @@ resource "oci_core_instance_configuration" "instance_configuration" {
 }
 
 data "oci_identity_availability_domains" "ads" {
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
 }
 
 resource "oci_core_instance_pool" "instance_pool" {
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
     instance_configuration_id = oci_core_instance_configuration.instance_configuration.id
     placement_configurations {
         availability_domain = data.oci_identity_availability_domains.ads.availability_domains[var.ad_number - 1].name

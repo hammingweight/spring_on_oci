@@ -1,6 +1,6 @@
 # load_balancer.tf
 resource "oci_load_balancer_load_balancer" "load_balancer" {
-    compartment_id = oci_identity_compartment.project_compartment.id
+    compartment_id = oci_identity_compartment.compartment.id
     display_name = "${var.project_name}_load_balancer"
     shape = "flexible"
     shape_details {
