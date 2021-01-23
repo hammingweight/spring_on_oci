@@ -1,11 +1,22 @@
 # We'll need a virtual cloud network (VCN) which should use a private IP
 # address range like 192.168.0.0/16
-resource "oci_core_vcn" "project_vcn" {
+resource "oci_core_vcn" "vcn" {
     # We're going to create the network in the compartment created by the
     # iam.tf module.
     compartment_id = oci_identity_compartment.project_compartment.id
     cidr_block = "192.168.0.0/16"
     display_name = "${var.project_name}_vcn"
+}
+
+resource "oci_core_route_table" "route_table" {
+    display_name = "${var.project_name}_route_table"
+    compartment_id = oci_identity_compartment.project_compartment.id
+    vcn_id = oci_core_vcn.vcn.id
+    route_rules {
+      destination_type = "CIDR_BLOCK"
+      destination = "0.0.0.0/0"
+      network_entity_id = oci_core_internet_gateway.project_internet_gateway.id
+    }
 }
 
 # We'll create subnets within the VCN for our VMs and LB.
@@ -15,37 +26,16 @@ resource "oci_core_subnet" "project_instance_subnet" {
     display_name = "${var.project_name}_instance_subnet"
     compartment_id = oci_identity_compartment.project_compartment.id
     cidr_block = "192.168.0.0/24"
-    vcn_id = oci_core_vcn.project_vcn.id
-    route_table_id = oci_core_route_table.project_route_table.id
+    vcn_id = oci_core_vcn.vcn.id
+    route_table_id = oci_core_route_table.route_table.id
     security_list_ids = [ oci_core_security_list.project_instance_security_list.id ]
-}
-
-resource "oci_core_subnet" "project_load_balancer_subnet" {
-    display_name = "${var.project_name}_load_balancer_subnet"
-    compartment_id = oci_identity_compartment.project_compartment.id
-    cidr_block = "192.168.1.0/24"
-    vcn_id = oci_core_vcn.project_vcn.id
-    route_table_id = oci_core_route_table.project_route_table.id
-    security_list_ids = [ oci_core_security_list.project_load_balancer_security_list.id ]
-}
-
-# internet gateway.
-resource "oci_core_route_table" "project_route_table" {
-    display_name = "${var.project_name}_route_table"
-    compartment_id = oci_identity_compartment.project_compartment.id
-    vcn_id = oci_core_vcn.project_vcn.id
-    route_rules {
-      destination_type = "CIDR_BLOCK"
-      destination = "0.0.0.0/0"
-      network_entity_id = oci_core_internet_gateway.project_internet_gateway.id
-    }
 }
 
 # Create an internet gateway.
 resource "oci_core_internet_gateway" "project_internet_gateway" {
     display_name = "${var.project_name}_gateway"
     compartment_id = oci_identity_compartment.project_compartment.id
-    vcn_id = oci_core_vcn.project_vcn.id
+    vcn_id = oci_core_vcn.vcn.id
 }
 
 # Allow traffic from the internet to connect via TCP (protocol=6)
@@ -54,7 +44,7 @@ resource "oci_core_internet_gateway" "project_internet_gateway" {
 resource "oci_core_security_list" "project_instance_security_list" {
     display_name = "${var.project_name}_instance_security_rules"
     compartment_id = oci_identity_compartment.project_compartment.id
-    vcn_id = oci_core_vcn.project_vcn.id
+    vcn_id = oci_core_vcn.vcn.id
     ingress_security_rules {
         stateless = false
         # Allow traffic to the web service port only from the LB
@@ -85,10 +75,10 @@ resource "oci_core_security_list" "project_instance_security_list" {
 
 # The only ingress traffic allowed to the LB is to the LB port (80).
 # The only egress traffic is to the web services running on the VMs.
-resource "oci_core_security_list" "project_load_balancer_security_list" {
+resource "oci_core_security_list" "load_balancer_security_list" {
     display_name = "${var.project_name}_load_balancer_security_rules"
     compartment_id = oci_identity_compartment.project_compartment.id
-    vcn_id = oci_core_vcn.project_vcn.id
+    vcn_id = oci_core_vcn.vcn.id
     ingress_security_rules {
         stateless = false
         source = "0.0.0.0/0"
@@ -107,4 +97,13 @@ resource "oci_core_security_list" "project_load_balancer_security_list" {
             min = var.webservice_port
         }
     }
+}
+
+resource "oci_core_subnet" "project_load_balancer_subnet" {
+    display_name = "${var.project_name}_load_balancer_subnet"
+    compartment_id = oci_identity_compartment.project_compartment.id
+    cidr_block = "192.168.1.0/24"
+    vcn_id = oci_core_vcn.vcn.id
+    route_table_id = oci_core_route_table.route_table.id
+    security_list_ids = [ oci_core_security_list.load_balancer_security_list.id ]
 }
