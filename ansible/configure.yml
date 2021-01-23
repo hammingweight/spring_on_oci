@@ -11,7 +11,7 @@
       state: enabled
     become: True
 
-  - name: install java 11
+  - name: install java
     yum:
       name: java-11-openjdk-devel
       state: latest
