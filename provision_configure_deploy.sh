@@ -1,3 +1,5 @@
+set -e
+
 cd 1_provision
 source tf_vars.sh
 terraform init
