@@ -1,7 +1,7 @@
 **/.terraform*
 **/terraform.tfstate*
-terraform/database_wallet.zip.asc
-terraform/tf_vars.sh
+1_provision/database_wallet.zip.asc
+1_provision/tf_vars.sh
 **/*.pem
 **/vm_ssh_key*
 ansible/venv

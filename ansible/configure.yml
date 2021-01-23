@@ -25,7 +25,7 @@
 
   - name: copy the wallet
     copy:
-      src: ../terraform/database_wallet.zip.asc
+      src: ../1_provision/database_wallet.zip.asc
       dest: ~/database_wallet.zip.asc
 
   - name: base64 decode the wallet
