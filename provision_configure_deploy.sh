@@ -14,5 +14,4 @@ ap() {
 }
 
 ap configure.yml
-ap database_schema.yml
 ap deploy.yml
