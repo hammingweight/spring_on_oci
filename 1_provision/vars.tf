@@ -1,15 +1,7 @@
 # vars.tf
-variable region {}
-
-variable availability_domain {}
-
 variable tenancy_ocid {}
 
-variable user_ocid {}
-
-variable private_key_path {}
-
-variable fingerprint {}
+variable config_file_profile {}
 
 variable vm_ssh_key {}
 

@@ -1,8 +1,4 @@
 # provider.tf
 provider "oci" {
-  region = var.region
-  tenancy_ocid = var.tenancy_ocid
-  user_ocid = var.user_ocid
-  private_key_path = var.private_key_path
-  fingerprint = var.fingerprint
+    config_file_profile = var.config_file_profile
 }
