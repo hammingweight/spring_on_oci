@@ -15,7 +15,7 @@ variable vm_ssh_key {}
 
 variable shape {}
 
-variable image_ocid {}
+variable image_display_name {}
 
 variable load_balancer_bandwidth_in_mbps {}
 

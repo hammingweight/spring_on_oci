@@ -1,3 +1,8 @@
+data "oci_core_images" "images" {
+    compartment_id = oci_identity_compartment.compartment.id
+    display_name = var.image_display_name
+}
+
 resource "oci_core_instance_configuration" "instance_configuration" {
     compartment_id = oci_identity_compartment.compartment.id
     instance_details {
@@ -13,7 +18,7 @@ resource "oci_core_instance_configuration" "instance_configuration" {
             shape = var.shape
             source_details {
                 source_type = "image"
-                image_id = var.image_ocid
+                image_id = data.oci_core_images.images.images[0].id
             }
         }
     }
