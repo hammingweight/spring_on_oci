@@ -1,18 +1,22 @@
+# The following two values are the only that two that must be explicitly set.
 export TF_VAR_tenancy_ocid=
 
+export TF_VAR_database_admin_password=
+
+# You can override the following values but the changes might not work if you are using a free tier account.
 export TF_VAR_config_file_profile=DEFAULT
 
 export TF_VAR_vm_ssh_key=../keys/vm_ssh_key.pub
 
 export TF_VAR_shape=VM.Standard.E2.1.Micro
 
-export TF_VAR_image_display_name="Oracle-Linux-7.9-2020.11.10-1"
+export TF_VAR_image_display_name="Oracle-Linux-7.9-2021.01.12-0"
 
 export TF_VAR_load_balancer_bandwidth_in_mbps=10
 
 export TF_VAR_webservice_port=8080
 
-export TF_VAR_webservice_healthcheck_url=/
+export TF_VAR_webservice_healthcheck_url=/actuator/health
 
 export TF_VAR_project_name=demo
 
@@ -24,6 +28,4 @@ export TF_VAR_number_of_instances=2
 
 export TF_VAR_load_balancer_port=443
 
-export TF_VAR_database_admin_password=
-
-export TF_VAR_database_wallet_password=
+export TF_VAR_database_wallet_password=$TF_VAR_database_admin_password
