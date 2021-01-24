@@ -15,3 +15,7 @@ ap() {
 
 ap configure.yml
 ap deploy.yml
+
+# It's useful to know the IP address of our web service.
+cd ../1_provision
+terraform show | grep ^load_balancer_ip

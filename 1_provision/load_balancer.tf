@@ -43,3 +43,7 @@ resource "oci_load_balancer_listener" "load_balancer_listener" {
         verify_peer_certificate = false
     }
 }
+
+output "load_balancer_ip" {
+    value = oci_load_balancer_load_balancer.load_balancer.ip_address_details[0].ip_address
+}
