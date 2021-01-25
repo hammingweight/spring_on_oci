@@ -1,7 +1,7 @@
 set -e
 
 cd 1_provision
-source tf_vars.sh
+source ../configuration_parameters_common/tf_vars.sh
 terraform init
 terraform destroy --auto-approve
 terraform apply --auto-approve
