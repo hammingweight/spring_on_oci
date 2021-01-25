@@ -5,23 +5,23 @@
   tasks:
   - name: back up the application.yml file before we clobber it
     copy:
-      src: ../spring_web_service/src/main/resources/application.yml
+      src: ../0_spring_application/src/main/resources/application.yml
       dest: /tmp/application.yml
 
   - block:
     - name: populate the application.yml file
       template:
         src: ./templates/application.yml
-        dest: ../spring_web_service/src/main/resources
+        dest: ../0_spring_application/src/main/resources
 
     - name: package spring application
-      shell: cd ../spring_web_service && ./mvnw clean package
+      shell: cd ../0_spring_application && ./mvnw clean package
 
     always:
       - name: restore the back up
         copy:
           src: /tmp/application.yml
-          dest: ../spring_web_service/src/main/resources/application.yml
+          dest: ../0_spring_application/src/main/resources/application.yml
       - file:
           path: /tmp/application.yml
           state: absent
@@ -47,7 +47,7 @@
 
   - name: copy jar
     copy:
-      src: ../spring_web_service/target/demo-0.0.1-SNAPSHOT.jar
+      src: ../0_spring_application/target/demo-0.0.1-SNAPSHOT.jar
       dest: ~/demo.jar
 
   - name: copy service definition
