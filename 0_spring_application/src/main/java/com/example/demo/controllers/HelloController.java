@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,11 +31,11 @@ public class HelloController {
             map.put("message", "Hello, " + name);
             map.put("visits", 1);
         } else {
-            int count = numVisits.get(0);
+            BigDecimal count = numVisits.get(0).add(BigDecimal.ONE);
             String sqlUpdate = "UPDATE person SET num_visits=? WHERE name=?";
-            jdbcTemplate.update(sqlUpdate, count + 1, name);
+            jdbcTemplate.update(sqlUpdate, count, name);
             map.put("message", "Hello again, " + name);
-            map.put("visits", count + 1);
+            map.put("visits", count);
         }
         return map;
     }
