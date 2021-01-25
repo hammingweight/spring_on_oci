@@ -19,6 +19,7 @@ public class HelloController {
 
     @GetMapping("/{name}")
     public Map<String, String> sayHello(@PathVariable("name") String name) {
+        jdbc.update("INSERT INTO person (name, num_visits) VALUES(?, 1)", name);
         //jdbc.queryForObject("select ")
         Map<String, String> map = new HashMap<>();
         map.put("message", "Hello, " + name);
