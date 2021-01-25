@@ -5,6 +5,5 @@
 ansible_common/venv
 
 configuration_parameters_common/tf_vars.sh
-
-keys/*.pem
-keys/vm_ssh_key*
+configuration_parameters_common/*.pem
+configuration_parameters_common/vm_ssh_key*

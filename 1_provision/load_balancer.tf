@@ -25,8 +25,8 @@ resource "oci_load_balancer_backend_set" "backend_set" {
 resource "oci_load_balancer_certificate" "certificate" {
     certificate_name = "${var.project_name}_certificate"
     load_balancer_id = oci_load_balancer_load_balancer.load_balancer.id
-    private_key = file("../keys/lb_key.pem")
-    public_certificate = file("../keys/lb_cert.pem")
+    private_key = file("../configuration_parameters_common/lb_key.pem")
+    public_certificate = file("../configuration_parameters_common/lb_cert.pem")
     lifecycle {
         create_before_destroy = true
     }
