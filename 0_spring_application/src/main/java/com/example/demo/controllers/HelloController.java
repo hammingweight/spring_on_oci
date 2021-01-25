@@ -1,4 +1,4 @@
-package com.example.demo.com.example.demo.controllers;
+package com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,7 +22,7 @@ public class HelloController {
     @GetMapping("/{name}")
     public Map<String, Object> sayHello(@PathVariable("name") String name) {
         String sqlQuery = "SELECT num_visits FROM person WHERE name=?";
-        List<Integer>  numVisits = jdbcTemplate.query(sqlQuery, new SingleColumnRowMapper<>(), name);
+        List<BigDecimal>  numVisits = jdbcTemplate.query(sqlQuery, new SingleColumnRowMapper<>(), name);
         Map<String, Object> map = new HashMap<>();
         if (numVisits.size() == 0) {
             String sqlInsert = "INSERT INTO person (name, num_visits) VALUES (?, 1)";
