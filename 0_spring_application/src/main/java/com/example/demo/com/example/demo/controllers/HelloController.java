@@ -20,17 +20,22 @@ public class HelloController {
     public JdbcTemplate jdbcTemplate;
 
     @GetMapping("/{name}")
-    public Map<String, String> sayHello(@PathVariable("name") String name) {
+    public Map<String, Object> sayHello(@PathVariable("name") String name) {
         String sqlQuery = "SELECT num_visits FROM person WHERE name=?";
         List<Integer>  numVisits = jdbcTemplate.query(sqlQuery, new SingleColumnRowMapper<>(), name);
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         if (numVisits.size() == 0) {
-            jdbcTemplate.update("INSERT INTO person (name, num_visits) VALUES (?, 1)", name);
-            map.put("First timer", "yes");
+            String sqlInsert = "INSERT INTO person (name, num_visits) VALUES (?, 1)";
+            jdbcTemplate.update(sqlInsert, name);
+            map.put("message", "Hello, " + name);
+            map.put("visits", 1);
         } else {
-            map.put("First timer", "no");
+            int count = numVisits.get(0);
+            String sqlUpdate = "UPDATE person SET num_visits=? WHERE name=?";
+            jdbcTemplate.update(sqlUpdate, count + 1, name);
+            map.put("message", "Hello again, " + name);
+            map.put("visits", count + 1);
         }
         return map;
     }
-
 }
