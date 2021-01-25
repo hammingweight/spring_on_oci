@@ -6,7 +6,7 @@ terraform init
 terraform destroy --auto-approve
 terraform apply --auto-approve
 
-cd ../ansible
+cd ../ansible_common
 source venv/bin/activate
 export ANSIBLE_CONFIG=$PWD/ansible.cfg
 
