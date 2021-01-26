@@ -23,15 +23,13 @@ public class HelloController {
 
     @Transactional
     @GetMapping("/{name}")
-    public Map<String, Object> sayHello(@PathVariable("name") String name) throws Throwable {
-        String sqlQuery = "SELECT num_visits FROM person WHERE name=?";
+    public Map<String, Object> sayHello(@PathVariable("name") String name) {
+        // SELECT ... FOR UPDATE so that we can lock the row to prevent concurrent modifications.
+        String sqlQuery = "SELECT num_visits FROM person WHERE name=? FOR UPDATE";
         List<BigDecimal>  numVisits = jdbcTemplate.query(sqlQuery, new SingleColumnRowMapper<>(), name);
-	Thread.sleep(6000);
         Map<String, Object> map = new HashMap<>();
         if (numVisits.size() == 0) {
-            // SELECT ... FOR UPDATE so that we can lock the row to prevent concurrent
-            // modifications.
-            String sqlInsert = "INSERT INTO person (name, num_visits) VALUES (?, 1) FOR UPDATE";
+            String sqlInsert = "INSERT INTO person (name, num_visits) VALUES (?, 1)";
             jdbcTemplate.update(sqlInsert, name);
             map.put("message", "Hello, " + name);
             map.put("visits", 1);
