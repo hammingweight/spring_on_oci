@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class HelloController {
     @Autowired
     public JdbcTemplate jdbcTemplate;
 
+    @Transactional
     @GetMapping("/{name}")
     public Map<String, Object> sayHello(@PathVariable("name") String name) throws Throwable {
         String sqlQuery = "SELECT num_visits FROM person WHERE name=?";
@@ -27,7 +29,9 @@ public class HelloController {
 	Thread.sleep(6000);
         Map<String, Object> map = new HashMap<>();
         if (numVisits.size() == 0) {
-            String sqlInsert = "INSERT INTO person (name, num_visits) VALUES (?, 1)";
+            // SELECT ... FOR UPDATE so that we can lock the row to prevent concurrent
+            // modifications.
+            String sqlInsert = "INSERT INTO person (name, num_visits) VALUES (?, 1) FOR UPDATE";
             jdbcTemplate.update(sqlInsert, name);
             map.put("message", "Hello, " + name);
             map.put("visits", 1);
