@@ -1,5 +1,5 @@
 1_provision/.terraform*
-1_provision/database_wallet.zip.asc
+1_provision/*_wallet.zip.asc
 1_provision/terraform.tfstate*
 
 ansible_common/venv

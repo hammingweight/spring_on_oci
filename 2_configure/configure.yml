@@ -23,7 +23,7 @@
 
   - name: copy the wallet
     copy:
-      src: ../1_provision/database_wallet.zip.asc
+      src: ../1_provision/{{ project_name }}_wallet.zip.asc
       dest: ~/database_wallet.zip.asc
 
   - name: base64 decode the wallet
