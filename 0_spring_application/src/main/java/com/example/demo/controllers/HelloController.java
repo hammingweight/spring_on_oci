@@ -21,9 +21,10 @@ public class HelloController {
     public JdbcTemplate jdbcTemplate;
 
     @GetMapping("/{name}")
-    public Map<String, Object> sayHello(@PathVariable("name") String name) {
+    public Map<String, Object> sayHello(@PathVariable("name") String name) throws Throwable {
         String sqlQuery = "SELECT num_visits FROM person WHERE name=?";
         List<BigDecimal>  numVisits = jdbcTemplate.query(sqlQuery, new SingleColumnRowMapper<>(), name);
+	Thread.sleep(6000);
         Map<String, Object> map = new HashMap<>();
         if (numVisits.size() == 0) {
             String sqlInsert = "INSERT INTO person (name, num_visits) VALUES (?, 1)";
