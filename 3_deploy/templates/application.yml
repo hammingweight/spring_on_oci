@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:oracle:thin:@demo_medium?TNS_ADMIN=/home/opc/database_wallet
+    url: jdbc:oracle:thin:@{{ project_name }}_low?TNS_ADMIN=/home/opc/{{ project_name }}_wallet
     username: admin
     password: "{{ database_admin_password }}"
 
