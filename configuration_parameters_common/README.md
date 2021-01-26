@@ -12,5 +12,5 @@ Generate an SSL private key and certificate for the load balancer
 by running
 
 ```
-openssl req  -nodes -new -x509  -keyout lb_key.pem -out lb_cert.pem -days 365
+openssl req  -nodes -new -x509  -keyout load_balancer_key.pem -out load_balancer_cert.pem -days 365
 ```
