@@ -15,7 +15,7 @@
         dest: ../0_spring_application/src/main/resources
 
     - name: package spring application
-      shell: cd ../0_spring_application && ./mvnw clean package
+      shell: cd ../0_spring_application && ./mvnw -Poci clean package
 
     always:
       - name: restore the back up
