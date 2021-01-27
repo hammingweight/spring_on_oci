@@ -1,0 +1,9 @@
+server:
+  port: 8000
+
+# This is not generally a good idea since it leaks information
+# that could be useful to an adversary.
+management:
+  endpoint:
+    health:
+      show-details: always
