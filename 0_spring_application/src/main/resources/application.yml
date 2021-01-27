@@ -1,3 +1,16 @@
+# An application.yml file can contain multiple profiles but
+# this configuration contains only the settings for "local"
+# testing. Our Ansible deployment script will replace this
+# file with an OCI-specificfile when we want to deploy to
+# the OCI cloud. The reason for not defining both profiles
+# in this file are:
+# 1. The OCI application.yml file will need to include a DB
+#    password so the file shouldn't be under source control.
+# 2. Having multiple profiles in one source file can be
+#    difficult to read.
+
+# Our "hello, world" web service listens on port 8000 in
+# our local environment.
 server:
   port: 8000
 
@@ -7,3 +20,11 @@ management:
   endpoint:
     health:
       show-details: always
+
+# It can be useful in development to have a console to the
+# H2 DB.
+spring:
+  h2:
+    console:
+      enabled: True
+      path: /h2

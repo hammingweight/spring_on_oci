@@ -14,6 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A REST controller that listens for GET requests to the /hello and /hello/{name} endpoints.
+ * The response returns a greeting and a count of how many times the endpoint has been queried.
+ */
 @RestController
 @RequestMapping(path = "/hello", produces = "application/json")
 public class HelloController {
