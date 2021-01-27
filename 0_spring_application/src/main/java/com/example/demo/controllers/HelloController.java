@@ -19,7 +19,13 @@ import java.util.Map;
 public class HelloController {
 
     @Autowired
-    public JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
+
+    @Transactional
+    @GetMapping()
+    public Map<String, Object> sayHello() {
+        return sayHello("world");
+    }
 
     @Transactional
     @GetMapping("/{name}")
