@@ -82,3 +82,11 @@
       state: started
       enabled: True
     become: True
+
+- hosts: localhost
+  gather_facts: false
+
+  tasks:
+    # Clean up the JAR since it isn't useful locally (and contains secrets)
+    - name: delete artifacts
+      shell: cd ../0_spring_application && ./mvnw -Poci clean
