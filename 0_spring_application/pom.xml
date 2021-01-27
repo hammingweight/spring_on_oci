@@ -42,9 +42,14 @@
 		</plugins>
 	</build>
 
+	<!-- We'll have different dependencies if we're running locally or in the OCI cloud -->
 	<profiles>
 		<profile>
+			<!-- For local development we use the embedded H2 database -->
 			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>com.h2database</groupId>
@@ -54,6 +59,7 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<!-- For the OCI profile, we'll use an Oracle 19c DB -->
 			<id>oci</id>
 			<dependencies>
 				<dependency>
