@@ -3,6 +3,7 @@
 1_provision/terraform.tfstate*
 
 ansible_common/venv
+ansible_common/.configured
 
 configuration_parameters_common/tf_vars.sh
 configuration_parameters_common/*.pem

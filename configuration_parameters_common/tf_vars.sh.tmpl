@@ -33,3 +33,32 @@ export TF_VAR_number_of_instances=2
 export TF_VAR_load_balancer_port=443
 
 export TF_VAR_database_wallet_password=$TF_VAR_database_admin_password
+
+# Some sanity checking.
+this_dir=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
+
+# Is terraform installed
+if ! which terraform >/dev/null
+then
+    echo "You need to install Terraform."
+    exit 1
+fi
+
+# Check that we have an OCI config file
+if [ ! -e ~/.oci/config ]
+then
+    mkdir -p ~/.oci
+    echo "You need to download your OCI configuration and save it at $HOME/.oci/config."
+    exit 1
+fi
+
+# Check that the tenancy is defined
+if [ "$TF_VAR_tenancy_ocid" == "" ]
+then
+    echo "You need to update the value of TF_VAR_tenancy_ocid in the $this_dir/tf_vars.sh file."
+    exit 1
+fi
+
+# Check that we have an SSH key
+
+# Check that we have a LB key
