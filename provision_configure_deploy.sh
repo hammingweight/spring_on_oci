@@ -1,24 +1,21 @@
+#!/bin/bash
 set -e
 
-cd 1_provision
-source ../configuration_parameters_common/tf_vars.sh
+script_dir=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
+
+# Provision the infrastructure
+cd $script_dir/1_provision
+source $script_dir/configuration_parameters_common/tf_vars.sh
 terraform init
 terraform destroy --auto-approve
 terraform apply --auto-approve
 
-cd ../ansible_common
-source venv/bin/activate
-export ANSIBLE_CONFIG=$PWD/ansible.cfg
+# Configure the servers
+$script_dir/ansible_common/ap.sh $script_dir/2_configure/configure.yml
 
-ap() {
-    ansible-playbook -e database_admin_password=$TF_VAR_database_admin_password -e project_name=$TF_VAR_project_name -e webservice_port=$TF_VAR_webservice_port "$@"
-}
-
-cd ../2_configure
-ap configure.yml
-cd ../3_deploy
-ap deploy.yml
+# Deploy the application to the servers
+$script_dir/ansible_common/ap.sh $script_dir/3_deploy/deploy.yml
 
 # It's useful to know the IP address of our web service.
-cd ../1_provision
+cd $script_dir/1_provision
 terraform show | grep ^load_balancer_ip
