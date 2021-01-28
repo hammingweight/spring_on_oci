@@ -61,18 +61,18 @@
 
   - name: copy jar
     copy:
-      src: "{{ hostvars['localhost']['tempdir']['path'] }}/0_spring_application/target/demo-0.0.1-SNAPSHOT.jar"
-      dest: ~/demo.jar
+      src: "{{ hostvars['localhost']['tempdir']['path'] }}/0_spring_application/target/{{ project_name }}-{{ project_version }}.jar"
+      dest: ~/{{ project_name }}-{{ project_version }}.jar
 
   - name: copy service definition
-    copy:
+    template:
       src: templates/demo.service
-      dest: /etc/systemd/system
+      dest: /etc/systemd/system/{{ project_name }}.service
     become: True
 
   - name: start service
     systemd:
-      name: demo.service
+      name: "{{ project_name }}.service"
       state: started
       enabled: True
     become: True
