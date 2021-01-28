@@ -3,48 +3,42 @@
   gather_facts: false
 
   tasks:
-  # The src/main/resources directory contains settings for local testing
-  # wit the H2 database. We'll replace the configuration with OCI settings.
-  - name: back up the src/main/resources directory before we replace it
+  - name: create a temporary directory
+    tempfile:
+      state: directory
+    register: tempdir
+
+  - name: copy project to temp dir
     copy:
-      src: ../0_spring_application/src/main/resources
-      dest: /tmp/src_main_resources
+      src: ../0_spring_application
+      dest: "{{ tempdir.path }}"
 
-  - block:
-    - name: delete the contents of the resources directory
-      file:
-        path: ../0_spring_application/src/main/resources
-        state: absent
+  - name: make mvnw executable
+    file:
+      path: "{{ tempdir.path }}/0_spring_application/mvnw"
+      mode: '755'
 
-    - name: recreate an empty resources directory
-      file:
-        path: ../0_spring_application/src/main/resources
-        state: directory
+  # The resources directory contains settings for local testing so
+  # delete the directory...
+  - name: delete the contents of the resources directory
+    file:
+      path: "{{ tempdir.path }}/0_spring_application/src/main/resources"
+      state: absent
 
-    - name: populate the application.yml file
-      template:
-        src: ./templates/application.yml
-        dest: ../0_spring_application/src/main/resources
+  # ...recreate the empty directory...
+  - name: recreate resources directory
+    file:
+      path: "{{ tempdir.path }}/0_spring_application/src/main/resources"
+      state: directory
 
-    # Use the OCI profile so that we build for the Oracle 19c DB
-    - name: package spring application
-      shell: cd ../0_spring_application && ./mvnw -Poci clean package
+  # ...and populate the directory with the application file used in OCI.
+  - name: populate the application.yml file
+    template:
+      src: ./templates/application.yml
+      dest: "{{ tempdir.path }}/0_spring_application/src/main/resources/application.yml"
 
-    always:
-    - name: delete the contents of the resources directory
-      file:
-        path: ../0_spring_application/src/main/resources
-        state: absent
-
-    - name: restore the back up to the resources directory
-      copy:
-        src: /tmp/src_main_resources/resources
-        dest: ../0_spring_application/src/main
-
-    - name: delete the back up
-      file:
-        path: /tmp/src_main_resources
-        state: absent
+  - name: package spring application
+    shell: cd {{ tempdir.path }}/0_spring_application && ./mvnw -Poci clean package
 
 - hosts: all
   gather_facts: false
@@ -67,7 +61,7 @@
 
   - name: copy jar
     copy:
-      src: ../0_spring_application/target/demo-0.0.1-SNAPSHOT.jar
+      src: "{{ hostvars['localhost']['tempdir']['path'] }}/0_spring_application/target/demo-0.0.1-SNAPSHOT.jar"
       dest: ~/demo.jar
 
   - name: copy service definition
@@ -87,6 +81,7 @@
   gather_facts: false
 
   tasks:
-    # Clean up the JAR since it isn't useful locally (and contains secrets)
-    - name: delete artifacts
-      shell: cd ../0_spring_application && ./mvnw -Poci clean
+  - name: delete temporary directory
+    file:
+      path: "{{ tempdir.path }}"
+      state: absent
