@@ -9,7 +9,12 @@ then
     export OCI_CLI_CONFIG_FILE=$HOME/.oci/config
 fi
 
-export TF_VAR_config_file_profile=DEFAULT
+if [ "$OCI_CLI_PROFILE" == "" ]
+then
+    export TF_VAR_config_file_profile=DEFAULT
+else
+    export TF_VAR_config_file_profile=$OCI_CLI_PROFILE
+fi
 
 export TF_VAR_vm_ssh_key=../configuration_parameters_common/vm_ssh_key.pub
 
@@ -62,9 +67,14 @@ fi
 # Check that the tenancy is defined
 if [ "$TF_VAR_tenancy_ocid" == "" ]
 then
-    echo "You did not set the value of TF_VAR_tenancy_ocid in the $this_dir/tf_vars.sh file."
-    export TF_VAR_tenancy_ocid=$(grep ^tenancy $OCI_CLI_CONFIG_FILE | cut -d= -f2 | head -1)
-    echo "Using tenancy $TF_VAR_tenancy_ocid."
+    if [ "$OCI_CLI_TENANCY" == "" ]
+    then
+        echo "You did not set the value of TF_VAR_tenancy_ocid in the $this_dir/tf_vars.sh file."
+        export TF_VAR_tenancy_ocid=$(grep ^tenancy $OCI_CLI_CONFIG_FILE | cut -d= -f2 | head -1)
+        echo "Using tenancy $TF_VAR_tenancy_ocid."
+    else
+        export TF_VAR_tenancy_ocid=$OCI_CLI_TENANCY
+    fi
 fi
 
 # Check that we have an SSH key
