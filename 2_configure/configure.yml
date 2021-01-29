@@ -7,6 +7,8 @@
     firewalld:
       port: "{{ webservice_port }}/tcp"
       state: enabled
+      immediate: True
+      permanent: True
     become: True
 
   - name: install java
