@@ -4,7 +4,10 @@ export TF_VAR_tenancy_ocid=
 export TF_VAR_database_admin_password=R3plac3Th!sN0W
 
 # You can override the following values but some changes might not work if you are using a free tier account.
-export TF_VAR_config_file=$HOME/.oci/config
+if [ "$OCI_CLI_CONFIG_FILE" == "" ]
+then
+    export OCI_CLI_CONFIG_FILE=$HOME/.oci/config
+fi
 
 export TF_VAR_config_file_profile=DEFAULT
 
@@ -49,10 +52,10 @@ then
 fi
 
 # Check that we have an OCI config file
-if [ ! -e $TF_VAR_config_file ]
+if [ ! -e $OCI_CLI_CONFIG_FILE ]
 then
     mkdir -p ~/.oci
-    echo "You need to download your OCI configuration and save it at $TF_VAR_config_file."
+    echo "You need to download your OCI configuration and save it at $OCI_CLI_CONFIG_FILE."
     exit 1
 fi
 
@@ -60,7 +63,7 @@ fi
 if [ "$TF_VAR_tenancy_ocid" == "" ]
 then
     echo "You did not set the value of TF_VAR_tenancy_ocid in the $this_dir/tf_vars.sh file."
-    export TF_VAR_tenancy_ocid=$(grep ^tenancy $TF_VAR_config_file | cut -d= -f2 | head -1)
+    export TF_VAR_tenancy_ocid=$(grep ^tenancy $OCI_CLI_CONFIG_FILE | cut -d= -f2 | head -1)
     echo "Using tenancy $TF_VAR_tenancy_ocid."
 fi
 
