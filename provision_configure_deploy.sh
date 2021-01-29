@@ -13,7 +13,6 @@ cd $script_dir/1_provision
 source $script_dir/configuration_parameters_common/tf_vars.sh
 echo "Provisioning servers, a load balancer and a database..."
 terraform init
-terraform destroy --auto-approve
 terraform apply --auto-approve
 
 # Configure the servers
