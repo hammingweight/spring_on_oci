@@ -7,5 +7,5 @@ You'll need:
  * The [OCI CLI](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm)
  * [Terraform](https://www.terraform.io/downloads.htm)
  
- You'll also need Python 3 but that's included in many recent Linux distros.
+ You'll also need Python 3 (it's included by default in many recent Linux distros.)
  
