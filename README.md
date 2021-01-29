@@ -4,7 +4,8 @@ This repository contains a "Hello, World" REST Service that can be deployed to O
 ## Prerequisites
 You'll need:
  * An [OCI account](https://www.oracle.com/cloud/free/)
+ * The [OCI CLI](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm)
  * [Terraform](https://www.terraform.io/downloads.htm)
  
- The example code was tested on Linux Mint and Ubuntu WSL.
+ You'll also need Python 3 but that's included in many recent Linux distros.
  
