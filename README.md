@@ -42,7 +42,7 @@ $ oci setup config
 ```
 
 Accept the defaults and supply the user and tenancy OCIDs and region when requested. At the end of the setup, you will have generated a private/public key pair. Upload the
-*API Signing) *public* key to your OCI account by following the instructions emitted by the `oci setup config` command:
+API Signing public key to your OCI account by following the instructions emitted by the `oci setup config` command:
 
 ```
     If you haven't already uploaded your API Signing public key through the
@@ -53,7 +53,7 @@ Accept the defaults and supply the user and tenancy OCIDs and region when reques
 ```
 
 ### Deploying the "Hello, World" Application to OCI
-Assuming that you've installed Terraform, you can now deploy the application by checking out this repo and running the `provison_configure_deploy` script
+If you've installed Terraform, you can now deploy the application by checking out this repo and running the `provison_configure_deploy` script
 
 ```
 $ git clone git@github.com:hammingweight/spring_on_oci.git
@@ -61,8 +61,7 @@ $ cd spring_on_oci/
 $ ./provision_configure_deploy.sh
 ```
 
-If the script fails almost immediately with this error you didn't upload your API signing key or you don't have permission to deploy
-to the region that you selected
+If the script fails almost immediately with the error below, you probably didn't upload your API signing key
 
 ```
 Error: Service error:NotAuthenticated. The required information to complete authentication was not provided or was incorrect..
@@ -79,7 +78,7 @@ localhost                  : ok=8    changed=8    unreachable=0    failed=0    s
 load_balancer_ip = "158.101.189.28"
 ```
 
-The IP address of the load balancer is needed to access the REST service. If you try accessing the service immediately, you'll probably get HTTP status code 502
+The IP address of the load balancer is needed to access the REST service. If you try accessing the service immediately, you'll probably see HTTP status code `502`
 
 ```
 $ curl -w '\n' -k https://158.101.189.28/hello
