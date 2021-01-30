@@ -1,5 +1,5 @@
 # The "Hello, world" REST API
-This Spring Boot application has a single REST Controller, [HelloController](./src/main/java/com/example/demo/controllers/HelloController.java) that exposes two API
+This Spring Boot application has a single REST Controller, [HelloController](./src/main/java/com/example/demo/controllers/HelloController.java), that exposes two API
 endpoints: `/hello` and `/hello/{name}` where the `/hello` endpoint is a shortcut for `/hello/world`. The controller interacts with a SQL database to store a count of
 the number of times that `/hello/{name}` is invoked for `{name}`.
 
@@ -37,3 +37,11 @@ it's common to use an in-memory database for local development while using an Or
 ```
 
 If we build the `local` profile (which is activated by default) we'll include the H2 database while JDBC drivers for Oracle 19c are used when we build the `oci` profile.
+
+The rest of this README describes building and running the application locally; building the application for OCI is described in the [3_deploy README.md file](../3_deploy/README.md).
+
+## The `application.yml` file for local development
+
+## The `schema.sql` file
+
+## Building a running the service locally
