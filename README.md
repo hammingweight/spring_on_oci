@@ -27,7 +27,7 @@ In the OCI environment, the code:
 ## Getting up and running quickly
 The subfolders in this repo have READMEs describing what the code in the folder does and how to execute it. If, however, you're impatient there's a script that provisions 
 infrastructure and then builds and deploys the service. Before running the script though, you need to have satisfied the prerequisites. Assuming that you've signed up with OCI 
-and downloaded the CLI, the first step is to configure your OCI redentials.
+and downloaded the CLI, the first step is to configure your OCI credentials.
 
 ### Configure the OCI CLI
 For this step, you'll need to supply
@@ -52,7 +52,7 @@ API signing public key to your OCI account by following the instructions emitted
         https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#How2
 ```
 
-With default configuration, the key that you need to apply exists at the path `~/.oci/oci_api_key_public.pem`.
+With default configuration, the key that you need to upload exists at the path `~/.oci/oci_api_key_public.pem`.
 
 
 ### Deploying the "Hello, World" Application to OCI
@@ -70,7 +70,10 @@ If the script fails almost immediately with the error below, you probably didn't
 Error: Service error:NotAuthenticated. The required information to complete authentication was not provided or was incorrect..
 ```
 
-If you successfully installed your signing key, the script will take about an hour to complete. At the end of the run, you should see some output similar to
+If you successfully installed your signing key, the script will take about to hour to run to completion on the first run. Subsequent runs will be much faster since the time for
+the first run is dominated by installing dependencies into your local environment.
+
+At the end of the run, you should see output similar to
 
 ```
 PLAY RECAP *************************************************************************************************************************************************************
