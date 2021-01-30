@@ -32,11 +32,13 @@ $ oci setup config
 Accept the defaults and supply the user and tenancy OCIDs and region when requestedmk. At the end of the setup, you will have generated a private/public key pair. Upload the
 *API Signing) *public* key to your OCI account by following the instructions from running the `oci setup config` command:
 
->     If you haven't already uploaded your API Signing public key through the
-      console, follow the instructions on the page linked below in the section
-      'How to upload the public key':
+```
+    If you haven't already uploaded your API Signing public key through the
+    console, follow the instructions on the page linked below in the section
+    'How to upload the public key':
 
         https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#How2
+```
 
 ### Deploying the "Hello, World" Application to OCI
 Assuming that you've installed Terraform, you can now deploy the application by checking out this repo and running a helpful script
@@ -47,7 +49,11 @@ $ cd spring_on_oci/
 $ ./provision_configure_deploy.sh
 ```
 
-If the script fails almost immediately with this error you didn't upload your API signing key
+If the script fails almost immediately with this error you didn't upload your API signing key or you don't have permission to deploy
+to the rgion that you selected
 
-> Error: Service error:NotAuthenticated. The required information to complete authentication was not provided or was incorrect..
+```
+Error: Service error:NotAuthenticated. The required information to complete authentication was not provided or was incorrect..
+```
 
+If you successfully installed your signing key, the script will take about an hour to run.
