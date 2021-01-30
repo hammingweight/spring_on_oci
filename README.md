@@ -42,13 +42,13 @@ $ oci setup config
 ```
 
 Accept the defaults and supply the user and tenancy OCIDs and region when requested. At the end of the setup, you will have generated a private/public key pair. Upload the
-API Signing public key to your OCI account by following the instructions emitted by the `oci setup config` command:
+API signing public key to your OCI account by following the instructions emitted by the `oci setup config` command:
 
 ```
     If you haven't already uploaded your API Signing public key through the
     console, follow the instructions on the page linked below in the section
     'How to upload the public key':
-oci_api_key_public.pem
+
         https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#How2
 ```
 
@@ -56,7 +56,7 @@ With default configuration, the key that you need to apply exists at the path `~
 
 
 ### Deploying the "Hello, World" Application to OCI
-If you've installed Terraform, you can now deploy the application by checking out this repo and running the `provison_configure_deploy` script
+If you've installed Terraform, you can now deploy the application by running
 
 ```
 $ git clone git@github.com:hammingweight/spring_on_oci.git
