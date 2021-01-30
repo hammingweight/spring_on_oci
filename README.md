@@ -116,3 +116,10 @@ $ curl -w '\n' -k https://158.101.189.28/hello
 
 Note that the `curl` commands were invoked with a `-k` switch; the SSL certificate loaded into the load balancer is a self-signed certificate so `curl` will fail if we don't
 allow insecure SSL connections.
+
+### Destroying the Infrastructure
+If you want to destroy the infrastructure to free up resources, the easiest way is to run
+
+```
+./destroy.sh
+```
