@@ -15,14 +15,14 @@ You'll also need Python 3 (it's included by default in many recent Linux distros
 The code *should* work in any free tier region but has been tested only in `eu-frankfurt-1`.
 
 ## What this code does
-The REST service is a toy example that exposes a `/hello/{name}` endpoint that returns how often a `GET` request has been performed against each `name` endpoint; e.g. how often the `/hello/alice` or `hello/bob` API endpoints have been invoked. The request counts are stored in a database; for local testing an H2 in-memory database is used while in OCI, a (free) Oracle Autonomous database is used.
+The REST service is a toy example that exposes a `/hello/{name}` endpoint that returns how often a `GET` request has been performed against each `name` endpoint; e.g. how often the `/hello/alice` or `hello/bob` API endpoints have been invoked. The request counts are stored in a database; for local testing an H2 in-memory database is used while in OCI, an Oracle Autonomous database is used.
 
 In the OCI environment, the code:
  * Provisions a virtual cloud network (VCN) with routing rules and security lists.
  * Instantiates two Oracle Linux VMs and installs Java on them.
  * Creates an Oracle Database and a "wallet" with credentials for accessing the database. The wallet is installed on the the VMs to allow requests to the database.
  * Deploys the Spring Boot application to both VMs.
- * Spins up a load balancer with a self-signed SSL certificate in front of the VMs to round-robin requests to both VMs.
+ * Spins up a load balancer with a self-signed SSL certificate to round-robin requests to both VMs.
 
 ## Getting up and running quickly
 The subfolders in this repo have READMEs describing what the code in the folder does and how to execute it. If, however, you're impatient there's a script that provisions 
@@ -30,10 +30,10 @@ infrastructure and then builds and deploys the service. Before running the scrip
 and downloaded the CLI, the first step is to configure your OCI redentials.
 
 ### Configure the OCI CLI
-For this step, you'll need to retrieve
+For this step, you'll need to supply
  * Your user identifier (user OCID which is a value like `ocid1.user.oc1..aaaaaaaa...mna`)
  * Your tenancy identifier (tenancy OCID which is a value like `ocid1.tenancy.oc1..aaaaaa...tvq`)
- * Know your home region (e.g. `eu-frankfurt-1`) 
+ * Your OCI home region (e.g. `eu-frankfurt-1`) 
  
  Then run
 
@@ -48,9 +48,12 @@ API Signing public key to your OCI account by following the instructions emitted
     If you haven't already uploaded your API Signing public key through the
     console, follow the instructions on the page linked below in the section
     'How to upload the public key':
-
+oci_api_key_public.pem
         https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#How2
 ```
+
+With default configuration, the key that you need to apply exists at the path `~/.oci/oci_api_key_public.pem`.
+
 
 ### Deploying the "Hello, World" Application to OCI
 If you've installed Terraform, you can now deploy the application by checking out this repo and running the `provison_configure_deploy` script
