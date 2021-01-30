@@ -50,7 +50,7 @@ $ ./provision_configure_deploy.sh
 ```
 
 If the script fails almost immediately with this error you didn't upload your API signing key or you don't have permission to deploy
-to the rgion that you selected
+to the region that you selected
 
 ```
 Error: Service error:NotAuthenticated. The required information to complete authentication was not provided or was incorrect..
