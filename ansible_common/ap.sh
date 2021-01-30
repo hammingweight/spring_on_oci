@@ -13,7 +13,8 @@ if [ ! -e $script_dir/venv ]; then
     echo "Installing Ansible in a virtual environment..."
     python3 -m venv $script_dir/venv
     source $script_dir/venv/bin/activate
-    pip install -r $script_dir/requirements.txt
+    pip3 install wheel
+    pip3 install -r $script_dir/requirements.txt
     ansible-galaxy collection install oracle.oci
     deactivate
     touch $script_dir/.configured
