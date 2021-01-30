@@ -41,7 +41,7 @@ Accept the defaults and supply the user and tenancy OCIDs and region when reques
 ```
 
 ### Deploying the "Hello, World" Application to OCI
-Assuming that you've installed Terraform, you can now deploy the application by checking out this repo and running a helpful script
+Assuming that you've installed Terraform, you can now deploy the application by checking out this repo and running the `provison_configure_deploy` script
 
 ```
 $ git clone git@github.com:hammingweight/spring_on_oci.git
@@ -56,4 +56,46 @@ to the region that you selected
 Error: Service error:NotAuthenticated. The required information to complete authentication was not provided or was incorrect..
 ```
 
-If you successfully installed your signing key, the script will take about an hour to run.
+If you successfully installed your signing key, the script will take about an hour to complete. At the end of the run, you should see some output similar to
+
+```
+PLAY RECAP *************************************************************************************************************************************************************
+130.61.159.216             : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+130.61.246.238             : ok=6    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+localhost                  : ok=8    changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+load_balancer_ip = "158.101.189.28"
+```
+
+The ip address of the load balancer is needed to access the REST service. If you try accessing the service immediately, you'll probably get HTTP status code 502.
+
+```
+$ curl -w '\n' -k https://158.101.189.28/hello
+<html>
+<head><title>502 Bad Gateway</title></head>
+<body bgcolor="white">
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center></center>
+</body>
+</html>
+```
+
+After a few minutes though, API requests should succeed
+
+```
+$ curl -w '\n' -k https://158.101.189.28/hello
+{"visits":1,"message":"Hello, world"}
+$ curl -w '\n' -k https://158.101.189.28/hello
+{"visits":2,"message":"Hello again, world"}
+$ curl -w '\n' -k https://158.101.189.28/hello
+{"visits":3,"message":"Hello again, world"}
+$ curl -w '\n' -k https://158.101.189.28/hello/Alice
+{"visits":1,"message":"Hello, Alice"}
+$ curl -w '\n' -k https://158.101.189.28/hello/Alice
+{"visits":2,"message":"Hello again, Alice"}
+$ curl -w '\n' -k https://158.101.189.28/hello
+{"visits":4,"message":"Hello again, world"}
+```
+
+Note that the `curl` commands were invoked with a `-k` switch; the SSL certificate loaded into the load balancer is a self-signed certificate so `curl` will fail if we don't
+allow insecure SSL connections.
