@@ -55,7 +55,7 @@ API signing public key to your OCI account by following the instructions emitted
 With default configuration, the key that you need to upload exists at the path `~/.oci/oci_api_key_public.pem`.
 
 
-### Deploying the "Hello, World" Application to OCI
+### Deploying the "Hello, World" application to OCI
 If you've installed Terraform, you can now deploy the application by running
 
 ```
@@ -123,3 +123,17 @@ If you want to destroy the infrastructure to free up resources, the easiest way 
 ```
 ./destroy.sh
 ```
+
+## Looking at the code in more detail
+Deploying an application to any cloud Infrastructure-as-a-Service (IaaS) involves four steps:
+ * Writing the application.
+ * Provisioning resources (VMs, load balancers, databases, etc.) in the IaaS.
+ * Configuring the VM servers (e.g. installing Java or opening firewall ports.)
+ * Deploying your application to the servers.
+ 
+ The READMEs in the following folders provide more details:
+ 0. [The Spring Boot application](./0_spring_application)
+ 1. [Provisioning.](./1_provision) Resources are provisioned using the OCI provider for Terraform.
+ 2. [Configuring.](./2_configure) The servers are configured using Ansible.
+ 3. [Deploying.](./3_deploy) The application is built using Maven and deployed using Ansible.
+  
