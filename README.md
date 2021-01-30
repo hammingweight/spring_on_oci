@@ -132,6 +132,7 @@ Deploying an application to any cloud Infrastructure-as-a-Service (IaaS) involve
  * Deploying your application to the servers.
  
  The READMEs in the following folders provide more details:
+ 
  0. [The Spring Boot application](./0_spring_application)
  1. [Provisioning.](./1_provision) Resources are provisioned using the OCI provider for Terraform.
  2. [Configuring.](./2_configure) The servers are configured using Ansible.
