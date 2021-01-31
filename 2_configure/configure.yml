@@ -1,48 +1,57 @@
 ---
 - hosts: all
   gather_facts: false
+  vars:
+    instance_tag: "{{ project_name }}_instance"
 
   tasks:
-  - name: open firewall for the spring service
-    firewalld:
-      port: "{{ webservice_port }}/tcp"
-      state: enabled
-      immediate: True
-      permanent: True
-    become: True
+  - block:
+    - debug:
+        msg: "{{ freeform_tags }}"
 
-  - name: install java
-    yum:
-      name: java-11-openjdk-devel
-      state: latest
-    become: True
+    - fail:
 
-  - name: install sqlcl
-    yum:
-      name: sqlcl
-      state: latest
-    become: True
+    - name: open firewall for the spring service
+      firewalld:
+        port: "{{ webservice_port }}/tcp"
+        state: enabled
+        immediate: True
+        permanent: True
+      become: True
 
-  - name: copy the wallet
-    copy:
-      src: ../1_provision/{{ project_name }}_wallet.zip.asc
-      dest: ~/{{ project_name }}_wallet.zip.asc
+    - name: install java
+      yum:
+        name: java-11-openjdk-devel
+        state: latest
+      become: True
 
-  - name: base64 decode the wallet
-    shell: base64 -d ~/{{ project_name }}_wallet.zip.asc > ~/{{ project_name }}_wallet.zip
+    - name: install sqlcl
+      yum:
+        name: sqlcl
+        state: latest
+      become: True
 
-  - name: create a directory for the wallet
-    file:
-      path: ~/{{ project_name }}_wallet
-      state: directory
+    - name: copy the wallet
+      copy:
+        src: ../1_provision/{{ project_name }}_wallet.zip.asc
+        dest: ~/{{ project_name }}_wallet.zip.asc
 
-  - name: unzip the wallet
-    unarchive:
-      src: ~/{{ project_name }}_wallet.zip
-      remote_src: True
-      dest: ~/{{ project_name }}_wallet
+    - name: base64 decode the wallet
+      shell: base64 -d ~/{{ project_name }}_wallet.zip.asc > ~/{{ project_name }}_wallet.zip
 
-  - name: clean up the base64-encoded wallet file
-    file:
-      path: ~/{{ project_name }}_wallet.zip.asc
-      state: absent
+    - name: create a directory for the wallet
+      file:
+        path: ~/{{ project_name }}_wallet
+        state: directory
+
+    - name: unzip the wallet
+      unarchive:
+        src: ~/{{ project_name }}_wallet.zip
+        remote_src: True
+        dest: ~/{{ project_name }}_wallet
+
+    - name: clean up the base64-encoded wallet file
+      file:
+        path: ~/{{ project_name }}_wallet.zip.asc
+        state: absent
+    when: instance_tag in freeform_tags

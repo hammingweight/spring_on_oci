@@ -5,6 +5,7 @@ data "oci_core_images" "images" {
 
 resource "oci_core_instance_configuration" "instance_configuration" {
     compartment_id = oci_identity_compartment.compartment.id
+    freeform_tags = {"${var.project_name}_instance"= true}
     instance_details {
         instance_type = "compute"
         launch_details {
