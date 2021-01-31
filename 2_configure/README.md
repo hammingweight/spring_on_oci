@@ -6,7 +6,7 @@ The servers spun up in the [provisioning](../0_provision) stage need to be confi
    logged into a VM
    
 ## Ansible
-There are several configuration management tools like Pupper, Check, Ansible and SaltStack. The preferred
+There are several configuration management tools like Puppet, Chef, Ansible and SaltStack. The preferred
 tool for configuring VMs in OCI is Ansible.
 
 Ansible scripts for configuring one or more hosts are written
@@ -19,6 +19,6 @@ via a variable is the port number for the "Hello, world" service so that a playb
 to accept packets destined for the port.
 
 ### Installing Ansible
-Running the [ap.sh](../ansible_common/ap.sh) script will install Ansible in a virtual environment. In addition
-to installing Ansible, the scipt installs an *Ansible Galaxy* collection, `oracle.oci`, that provides modules
-useful for configuring servers running in OCI.
+Running the [ap.sh](../ansible_common/ap.sh) script will install Ansible in a Python virtual environment. The script
+also installs an *Ansible Galaxy* collection, `oracle.oci`, that provides modules useful for configuring servers
+running in OCI.
