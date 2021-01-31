@@ -1,9 +1,9 @@
 # Configuring the Servers
 The servers spun up in the [provisioning](../0_provision) stage need to be configured to be usable:
- * Java needs to be installed
+ * Java needs to be installed.
  * The firewall running on the VMs needs to be opened to allow traffic to the VMs.
  * SQLcl (a CLI for Oracle databases) should be installed so that the database can be interrogated by an administrator who has
-   logged into a VM
+   logged into a VM.
    
 ## Ansible
 There are several configuration management tools like Puppet, Chef, Ansible and SaltStack. The preferred
