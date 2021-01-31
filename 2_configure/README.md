@@ -2,8 +2,8 @@
 The servers spun up in the [provisioning](../0_provision) need to be configured to be usable:
  * Java needs to be installed
  * The firewall running on the VMs needs to be opened to allow traffic to the VMs.
- * SQLcl (a CLI for Oracle databases) shold be installed so that the database can be interrogated from the
-   VMs by an administrator
+ * SQLcl (a CLI for Oracle databases) should be installed so that the database can be interrogated by an administrator who has
+   logged into a VM
    
 ## Ansible
 There are several configuration management tools like Pupper, Check, Ansible and SaltStack. The preferred
