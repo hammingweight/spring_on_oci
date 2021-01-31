@@ -30,5 +30,5 @@ a new key pair. If you have an existing SSH key pair that you'd prefer to use, c
 Traffic to and from a web service is frequently sensitive and should be encrypted for confidentiality. The "Hello, world" service loads an SSL private key and a digital
 certificate for the key into the load balancer. If no private key exists in this directory, the `tf_vars.sh` script generates a private key and a self-signed SSL certificate.
 Information security frequently requires both confidentiality and authentication; when using self-signed certificates you get only the former. To get authentication, you
-will, at a minimum, need to get a Certification Authority to generate a certificate for your private key. That will partially solve the problem but you would still need to
+will, at a minimum, need to get a Certificate Authority to generate a certificate for your private key. That will partially solve the problem but you would still need to
 associate the `common name` in the certificate with the IP address of the load balancer.
