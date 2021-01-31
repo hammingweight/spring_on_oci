@@ -19,6 +19,6 @@ can change when using elastic scaling.
 
 ## The `ap.sh` script
 The [ap.sh](./ap.sh) script is a thin wrapper around `ansible-playbook` that:
- * Installs Ansible if it's not already installed
- * Invokes `ansible-playbook` with arguments derived from the [tf_vars.sh](../configuration_parameters_common/tf_vars.sh.tmpl). Those aarguments include the SSH key needed to
-   authenticate the `opc` user for logging into host VMs.
+ * Installs Ansible if it's not already installed.
+ * Invokes `ansible-playbook` with arguments derived from the [tf_vars.sh](../configuration_parameters_common/tf_vars.sh.tmpl) configuration file. The arguments include the SSH
+   key needed to authenticate the `opc` user for logging into host VMs.
