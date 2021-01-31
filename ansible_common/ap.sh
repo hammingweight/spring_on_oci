@@ -18,6 +18,12 @@ if [ ! -e $script_dir/venv ]; then
     ansible-galaxy collection install oracle.oci
     deactivate
     touch $script_dir/.configured
+else
+    echo "Ansible is already installed."
+fi
+
+if [ $# == 0 ]; then
+    exit 0
 fi
 
 source $script_dir/venv/bin/activate
