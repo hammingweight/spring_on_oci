@@ -86,6 +86,7 @@ we define an "instance configuration" which is a blueprint that allows us to spi
  * The SSH key that should be used to access the VMs
  * The shape of the VM
  * The image from which the instance should be launched
+ * Tagging the instances with an OCI freeform tag to identify instances where the "Hello, world" service should be deployed.
  
  We then define an "instance pool" that specifies the size of the pool (i.e. how many instances we want to launch) and that the instances should be based on
  the previously defined instance configuration. We also specify that we want a load balancer to distribute traffic to the instances.
