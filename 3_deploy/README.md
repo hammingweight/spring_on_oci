@@ -2,24 +2,24 @@
 By default, Maven will build the "Hello, world" application for a local environment with an H2 database (see the [0_spring_application README](../0_spring_application).)
 
 Deploying the "Hello, world" service to OCI involves three main tasks:
-  * Using Maven to package the application with the `oci` profile
-  * Creating the database schema needed for the application 
-  * Copying the packaged JAR to the OCI instances and running the JAR
+  * Using Maven to package the application with the `oci` profile.
+  * Creating the database schema needed for the application.
+  * Copying the packaged JAR to the OCI instances and running the JAR.
  
  All of the tasks are performed using Ansible in the [deploy.yml](./deploy.yml) playbook.
  
  ## `deploy.yml`
  ### Building the application for OCI
- The [resources](./src/main/resources) directory, by default, contains an `application.yml` and `schema.sql` file for the local profile. Spring allows multiple
+ The [resources](./src/main/resources) directory, by default, contains an `application.yml` and `schema.sql` file for the `local` profile. Spring allows multiple
  profiles to be defined in `application.yml` file but the data for the OCI profile needs to include a database password so it would be a poor idea to
  include the OCI profile in the `application.yml` file and store it under source control. Instead we use an Ansible template for the OCI
- [application.yml](./template/application.yml) which will populate the password from an Ansible variable (`database_admin_password`) that is passed to the
- `ansible-playbook` script when we need to build the application.
+ [application.yml](./templates/application.yml) which will populate the password from an Ansible variable (`database_admin_password`) that is passed to the
+ `ansible-playbook` script.
  
 For a production deployment, it's a poor idea to package a `schema.sql` file with an application; instead the database schema should be created before deploying the
 application. So, in the case of the `oci` profile we do not want a `schema.sql` file in the `resources` directory.
  
-The [deploy.yml](./deploy.yml) playbook runs a task on the local machine that deletes the contents of the `src/main/resources` directory and then repopulates the
+The `deploy.yml` playbook runs a task on the local machine that deletes the contents of the `src/main/resources` directory and then repopulates the
 `resources` directory with an `application.yml` file created from the application template. The playbook then builds the application by executing `mvnw package` with
 the `oci` profile.
 
