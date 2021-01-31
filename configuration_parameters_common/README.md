@@ -3,7 +3,11 @@ While [provisioning](../1_provision), [configuration](../2_configure) and [deplo
 to run in OCI, there needs to be some coupling between the tasks. For example, we provision our compute instances with an SSH public key but the corresponding private key must be
 used by Ansible to authenticate itself to configure the hosts.
 
-The private and public keys needed for the "Hello, world" application should be stored in this folder. The keys needed are:
+This directory contains:
+ * A script, `tf_vars.sh`, with configuration parameters that are needed by Terraform and Ansible.
+ * Private and public keys.
+
+The private and public keys needed for the "Hello, world" application are:
  * `vm_ssh_key` and `vm_ssh_key.pub` for SSH access to the compute instances.
  * `load_balancer_key.pem` and `load_balancer_cert.pem` for encrypting SSL traffic from the internet to the load balancers.
  
