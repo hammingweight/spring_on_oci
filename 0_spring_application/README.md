@@ -5,7 +5,7 @@ the number of times that `/hello/{name}` is invoked.
 
 ## Building the application for a local versus an OCI deployment
 This project is built using Maven. It's common to have different profiles in a Maven POM file to handle different requirements in local versus production deployments. In
-particular, we often use an in-memory database for local development while using, e.g., an Oracle database in production. That's true in this case as well where an examination
+particular, an in-memory database is used for local development while, e.g., an Oracle database is used in production. That's true in this case as well where an examination
 of the [POM file](./pom.xml) shows that there are two profiles: `local` and `oci`
 
 ```
