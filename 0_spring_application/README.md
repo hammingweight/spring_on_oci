@@ -1,11 +1,12 @@
 # The "Hello, world" REST API
 This Spring Boot application has a single REST Controller, [HelloController](./src/main/java/com/example/demo/controllers/HelloController.java), that exposes two API
 endpoints: `/hello` and `/hello/{name}` where the `/hello` endpoint is a shortcut for `/hello/world`. The controller interacts with a SQL database to store a count of
-the number of times that `/hello/{name}` is invoked for `{name}`.
+the number of times that `/hello/{name}` is invoked.
 
 ## Building the application for a local versus an OCI deployment
-This project is built using Maven. It's common to have different profiles in a POM file to handle different requirements in local versus production deployments. In particular,
-it's common to use an in-memory database for local development while using an Oracle database in production. That's true in this case as well where an examination of the [POM file](./pom.xml) shows that there are two profiles: `local` and `oci`
+This project is built using Maven. It's common to have different profiles in a Maven POM file to handle different requirements in local versus production deployments. In
+particular, we often use an in-memory database for local development while using, e.g., an Oracle database in production. That's true in this case as well where an examination
+of the [POM file](./pom.xml) shows that there are two profiles: `local` and `oci`
 
 ```
 <profile>
@@ -47,10 +48,10 @@ port 8000 and that the application should expose an API endpoint, `/h2`, to allo
 ## The `schema.sql` file
 If a Spring Boot application is packaged with a `schema.sql` file, Spring will try to create the schema when the service is restarted. Including such a file makes sense for
 local development since an in-memory database will be destroyed when an application shuts down and will need to be recreated when the service starts up again. It makes less
-sense to include such a file in a production environment where you typically run multiple instances of a service and (1) the database schema only needs to be created once and
-not for every instance of the service and (2) the schema should not be recrated every time a service is restarted.
+sense to include such a file in a production environment where you typically run multiple instances of a service and the database schema only needs to be created once and
+not for every instance of the service.
 
-The [`schema.sql`](./src/main/resources/schema.sql) file simply specifies that names should be mapped to a count:
+The [schema.sql](./src/main/resources/schema.sql) creates a database that map names to a count:
 
 ```
 CREATE TABLE IF NOT EXISTS visitors (
