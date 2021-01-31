@@ -103,4 +103,4 @@ we define an "instance configuration" which is a blueprint that allows us to spi
  #### `database.tf`
  The [database.tf](./database.tf) file provisions an OLTP (aka ATP) database in OCI. Naturally, a database should have access restrictions limiting who can query
  the database. The Terraform scripts create a "wallet" for the database with credentials. The wallet is downloaded to the host machine and can be installed on the
- VMs during [configuration](../2_config/README.md) so that our deployed service can read from and write to the database.
+ VMs during [configuration](../2_configure/README.md) so that our deployed service can read from and write to the database.
