@@ -6,11 +6,6 @@
 
   tasks:
   - block:
-    - debug:
-        msg: "{{ freeform_tags }}"
-
-    - fail:
-
     - name: open firewall for the spring service
       firewalld:
         port: "{{ webservice_port }}/tcp"

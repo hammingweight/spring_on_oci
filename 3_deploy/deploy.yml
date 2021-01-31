@@ -42,40 +42,44 @@
 
 - hosts: all
   gather_facts: false
+  vars:
+    instance_tag: "{{ project_name }}_instance"
 
   tasks:
   - block:
-    - name: copy schema.sql
+    - block:
+      - name: copy schema.sql
+        copy:
+          src: ./templates/schema.sql
+          dest: ~/schema.sql
+
+      - name: create schema
+        shell: /opt/oracle/sqlcl/bin/sql -cloudconfig /home/opc/{{ project_name }}_wallet.zip -L 'admin/"{{ database_admin_password }}"@{{ project_name }}_low' @/home/opc/schema.sql
+
+      - name: delete schema.sql
+        file:
+          path: ~/schema.sql
+          state: absent
+      run_once: True
+
+    - name: copy jar
       copy:
-        src: ./templates/schema.sql
-        dest: ~/schema.sql
+        src: "{{ hostvars['localhost']['tempdir']['path'] }}/0_spring_application/target/{{ project_name }}-{{ project_version }}.jar"
+        dest: ~/{{ project_name }}-{{ project_version }}.jar
 
-    - name: create schema
-      shell: /opt/oracle/sqlcl/bin/sql -cloudconfig /home/opc/{{ project_name }}_wallet.zip -L 'admin/"{{ database_admin_password }}"@{{ project_name }}_low' @/home/opc/schema.sql
+    - name: copy service definition
+      template:
+        src: templates/demo.service
+        dest: /etc/systemd/system/{{ project_name }}.service
+      become: True
 
-    - name: delete schema.sql
-      file:
-        path: ~/schema.sql
-        state: absent
-    run_once: True      
-
-  - name: copy jar
-    copy:
-      src: "{{ hostvars['localhost']['tempdir']['path'] }}/0_spring_application/target/{{ project_name }}-{{ project_version }}.jar"
-      dest: ~/{{ project_name }}-{{ project_version }}.jar
-
-  - name: copy service definition
-    template:
-      src: templates/demo.service
-      dest: /etc/systemd/system/{{ project_name }}.service
-    become: True
-
-  - name: start service
-    systemd:
-      name: "{{ project_name }}.service"
-      state: started
-      enabled: True
-    become: True
+    - name: start service
+      systemd:
+        name: "{{ project_name }}.service"
+        state: started
+        enabled: True
+      become: True
+    when: instance_tag in freeform_tags
 
 - hosts: localhost
   gather_facts: false
