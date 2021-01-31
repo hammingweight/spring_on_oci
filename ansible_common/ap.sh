@@ -19,7 +19,7 @@ if [ ! -e $script_dir/venv ]; then
     deactivate
     touch $script_dir/.configured
 else
-    echo "Ansible is already installed."
+    echo "Ansible is installed."
 fi
 
 if [ $# == 0 ]; then
