@@ -30,7 +30,7 @@ dynamcially assigned and the number of servers can change as the infrastructure 
 response to demand. The [inventory](../ansible_common/inventory.oci.yml) file used for configuration is trivial since it
 uses the OCI inventory plugin to list all servers created.
 
-*Note that this use of the dynamic inventory not a good idea if you're running outside of a free tier account since you may have servers
+*Note that this use of the dynamic inventory is not a good idea if you're running outside of a free tier account since you may have servers
 in many compartments. Consult Oracle documentation to find out how to limit a playbook to running on a subset of servers such
 as only the servers in a single compartment.*
 
