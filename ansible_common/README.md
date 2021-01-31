@@ -1,7 +1,9 @@
 # Common Ansible Functionality
 
 We use Ansible both for [configuration](../2_configure) and [deployment](../3_deploy). This directory contains Ansible scripts and configuration that is needed for
-both configuration and deployment. Ansible is installed in a Python virtual environment in this directory running the [ap.sh](./ap.sh) script without any arguments.
+both those tasks.
+
+Ansible can be installed in a Python virtual environment in this directory running the [ap.sh](./ap.sh) script without any arguments.
 
 ## `ansible.cfg`
 The [ansible.cfg](./ansible.cfg) defines the configuration settings used by Ansible. The most important setting is the declaration of the inventory to use
