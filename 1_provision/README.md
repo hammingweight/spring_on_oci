@@ -66,3 +66,41 @@ Similarly to tear down your infrastructure
 $ source ../configuration_parameters_common/tf_vars.sh
 $ terraform destroy
 ```
+
+### The Terraform Files
+#### `provider.tf`
+The [provider.tf](./provider.tf) file declares that we want to provision our infrastructure on OCI.
+
+#### `compartment.tf`
+OCI has an idea of compartments which allows tenancies to be divided into compartments of grouped resources. The [`compartment.tf`](./compartment.tf) file creates
+a compartment that all resources (VM, networks, load balancers, etc) will be created in. Many of the other files will reference the compartment created with
+assignments like
+
+```
+compartment_id = oci_identity_compartment.compartment.id
+```
+
+#### `compute.tf`
+The [compute.tf](./compute.tf) file provisions our VMs. For horizontal scalability we don't simply declare the compute instances (aka VMs) directly; instead
+we define an "instance configuration" which is a blueprint that allows us to spin up muliple instances of identical VMs. The instance configuration includes:
+ * The SSH key that should be used to access the VMs
+ * The shape of the VM
+ * The image from which the instance should be launched
+ 
+ We then define an "instance pool" that specifies the size of the pool (i.e. how many instances we want to launch) and that the instances should be based on
+ the previously defined instance configuration. We also specify that we want a load balancer to distribute traffic to the instances.
+ 
+ #### `load_balancer.tf`
+ The [load_balancer.tf](./load_balancer.tf) file instantiates a load balancer with an SSL certificate and key that we supply. The declaration of the load balancer
+ also specifies how to check that instances are healthy. Since we're deploying a Spring Boot application that means instructing the load balancer to poll the
+ `/actuator/health` endpoint of our services.
+ 
+ #### `network.tf`
+ Our VMs need to exist on a Virtual Cloud Network (VCN) and need access to the internet. The VCN is split into two subnets: one subnet for our VMs and the other subnet
+ for the load balancer. There are also security rules that restrict traffic to the load balancer and the VMs (e.g. only the load balancer can access the REST endpoint
+ of our service but we can SSH into the VMs from anywhere). The [network.tf](./network.tf) defines the VCN and subnets, internet gateway and security lists.
+ 
+ #### `database.tf`
+ The [database.tf](./database.tf) file provisions an OLTP (aka ATP) database in OCI. Naturally, a database should have access restrictions limiting who can query
+ the database. The Terraform scripts create a "wallet" for the database with credentials. The wallet is downloaded to the host machine and can be installed on the
+ VMs during [configuration](../2_configuration/README.md) so that our deployed service can read from and write to the database.
