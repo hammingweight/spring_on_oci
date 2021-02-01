@@ -16,17 +16,11 @@ else
     export TF_VAR_config_file_profile=$OCI_CLI_PROFILE
 fi
 
-export TF_VAR_vm_ssh_key=../configuration_parameters_common/vm_ssh_key.pub
-
 export TF_VAR_shape=VM.Standard.E2.1.Micro
 
 export TF_VAR_image_display_name="Oracle-Linux-7.9-2021.01.12-0"
 
 export TF_VAR_load_balancer_bandwidth_in_mbps=10
-
-export TF_VAR_load_balancer_key=../configuration_parameters_common/load_balancer_key.pem
-
-export TF_VAR_load_balancer_cert=../configuration_parameters_common/load_balancer_cert.pem
 
 export TF_VAR_webservice_port=8080
 
@@ -46,9 +40,17 @@ export TF_VAR_load_balancer_port=443
 
 export TF_VAR_database_wallet_password=$TF_VAR_database_admin_password
 
-# Some sanity checking.
 this_dir=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 
+export TF_VAR_vm_ssh_private_key=$this_dir/vm_ssh_key
+
+export TF_VAR_vm_ssh_key=${TF_VAR_vm_ssh_private_key}.pub
+
+export TF_VAR_load_balancer_key=../configuration_parameters_common/load_balancer_key.pem
+
+export TF_VAR_load_balancer_cert=../configuration_parameters_common/load_balancer_cert.pem
+
+# Some sanity checking.
 # Is terraform installed
 if ! which terraform >/dev/null
 then
@@ -78,10 +80,10 @@ then
 fi
 
 # Check that we have an SSH key
-if [ ! -e $this_dir/vm_ssh_key ]
+if [ ! -e $TF_VAR_vm_ssh_private_key ]
 then
     echo "Generating an SSH key..."
-    ssh-keygen -f $this_dir/vm_ssh_key -N ""
+    ssh-keygen -f $TF_VAR_vm_ssh_private_key -N ""
 fi
 
 # Check that we have a load balancer key
