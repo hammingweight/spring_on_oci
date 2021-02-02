@@ -42,8 +42,8 @@ If we build the `local` profile (which is activated by default) we'll include th
 The rest of this README describes building and running the application locally; building the application for OCI is described in the [3_deploy/README.md file](../3_deploy/README.md).
 
 ## The `application.yml` file for local development
-The [application.yml](./src/main/resources/application.yml) file does not contain anything oy of the ordinary; it specifies that the REST service will listen for requests on
-port 8000 and that the application should expose an API endpoint, `/h2`, to allow users to query the H2 database.
+The [application.yml](./src/main/resources/application.yml) file does not contain anything unusual; the application properties specify that the REST service will listen for
+requests on port 8000 and that the application should expose an API endpoint, `/h2`, to allow users to query the H2 database.
 
 ## The `schema.sql` file
 If a Spring Boot application is packaged with a `schema.sql` file, Spring will try to create the schema when the service is restarted. Including such a file makes sense for
