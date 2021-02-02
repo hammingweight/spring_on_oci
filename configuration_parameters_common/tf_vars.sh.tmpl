@@ -63,7 +63,8 @@ fi
 if [ ! -e $OCI_CLI_CONFIG_FILE ]
 then
     mkdir -p ~/.oci
-    echo "You need to download your OCI configuration and save it at $OCI_CLI_CONFIG_FILE."
+    echo "You need to set up your OCI configuration at $OCI_CLI_CONFIG_FILE."
+    echo "Run: oci setup config"
     exit 1
 fi
 
