@@ -20,7 +20,7 @@ The REST service is a toy example that exposes a `/hello/{name}` endpoint that r
 In the OCI environment, the code:
  * Provisions a virtual cloud network (VCN) with routing rules and security lists.
  * Instantiates two Oracle Linux VMs and installs Java on them.
- * Creates an Oracle Database and a "wallet" with credentials for accessing the database. The wallet is installed on the the VMs to allow requests to the database.
+ * Creates an Oracle Database and a "wallet" with credentials for accessing the database. The wallet is installed on both VMs to authenticate client requests to the database.
  * Deploys the Spring Boot application to both VMs.
  * Spins up a load balancer with a self-signed SSL certificate to round-robin requests to both VMs.
 
