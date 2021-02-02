@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+# Check that the user has installed the OCI CLI
+if ! which oci
+then
+    echo "Please download and install the OCI CLI."
+    echo "https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm"
+    exit 1
+fi
+
 script_dir=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 
 if [ ! -e $script_dir/configuration_parameters_common/tf_vars.sh ]
