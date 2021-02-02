@@ -5,7 +5,7 @@ the number of times that `/hello/{name}` is invoked.
 
 ## Building the application for a local versus an OCI deployment
 This project is built using Maven. It's common to have different profiles in a Maven POM file to handle different requirements in local versus production deployments. In
-particular, an in-memory database is used for local development while, e.g., an Oracle database is used in production. That's true in this case as well where an examination
+particular, an in-memory database is used for local development while, e.g., an Oracle database is used in production. That's the case in this example where an examination
 of the [POM file](./pom.xml) shows that there are two profiles: `local` and `oci`
 
 ```
@@ -62,13 +62,13 @@ CREATE TABLE IF NOT EXISTS visitors (
 ```
 
 ## Building and running the service locally
-To build the service for local use, we need to use the `local` profile
+To build the service for local testing, we need to use the `local` profile
 
 ```
 $ ./mvnw -Plocal clean package
 ```
 
-but, since `local` is activated by default, we don't need to specify the profile
+but, since `local` is activated by default, we can omit the profile
 
 ```
 $ ./mvnw clean package
@@ -86,4 +86,4 @@ $ curl -w '\n' http://localhost:8000/hello
 {"visits":1,"message":"Hello, world"}
 ```
 
-Opening http://localhost:8000/h2 in a browser, will give us a console to manage and query the H2 database.
+Visting http://localhost:8000/h2 from a browser opens a console to manage and query the H2 database.
