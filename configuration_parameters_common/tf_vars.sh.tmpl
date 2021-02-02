@@ -55,6 +55,7 @@ export TF_VAR_load_balancer_cert=../configuration_parameters_common/load_balance
 if ! which terraform >/dev/null
 then
     echo "You need to install Terraform."
+    echo "https://www.terraform.io/downloads.html"
     exit 1
 fi
 

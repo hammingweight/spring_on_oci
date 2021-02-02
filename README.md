@@ -8,7 +8,7 @@ The goal of this project is to show how to provision and configure resources in 
 You'll need:
  * An [OCI account](https://www.oracle.com/cloud/free/) in a region that supports Oracle Free tier (like eu-frankfurt-1, uk-london-1 or us-ashburn-1.)
  * The [OCI CLI](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm)
- * [Terraform](https://www.terraform.io/downloads.htm)
+ * [Terraform](https://www.terraform.io/downloads.html)
  
 You'll also need Python 3 (it's included by default in many recent Linux distros.)
 
