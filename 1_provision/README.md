@@ -7,7 +7,8 @@ In this section, "provisioning" means creating resources in OCI. Resources that 
 
 ## Terraform
 There are many ways to create resources in OCI including through the web console, OCI's REST API, the OCI CLI, the OCI SDKs and Ansible.
-However, the most reliable way to reproducibly create resources in an automated way is to use the OCI provider for Terraform.
+The previous tools are not specifically for provisioning though; the tool that we use in this section is [Terraform](https://terraform.io)
+which is *Infrastructure as code* software for provisioning virtualized hardware not just in OCI but many other cloud vendors.  
 
 ### The HCL language
 Terraform describes "things" in the Hashicorp Configuration Language (HCL) where "things" can be:
