@@ -9,6 +9,14 @@ then
     exit 1
 fi
 
+# Check that we have a Java compiler needed by Maven
+if ! which javac
+then
+    echo "You need a Java compiler. Please install a JDK."
+    exit 1
+fi
+
+# Get the path to this script
 script_dir=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 
 if [ ! -e $script_dir/configuration_parameters_common/tf_vars.sh ]
