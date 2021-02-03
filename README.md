@@ -77,11 +77,11 @@ At the end of the run, you should see output similar to
 
 ```
 PLAY RECAP *************************************************************************************************************************************************************
-130.61.159.216             : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-130.61.246.238             : ok=6    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+130.61.50.74               : ok=6    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+158.101.160.71             : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 localhost                  : ok=8    changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
-load_balancer_ip = "158.101.189.28"
+load_balancer_ip = "193.122.5.88"
 ```
 
 The IP address of the load balancer is needed to access the REST service. If you try accessing the service immediately, you'll probably see HTTP status code `502`
