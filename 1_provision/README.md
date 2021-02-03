@@ -19,7 +19,7 @@ Terraform describes "things" in the Hashicorp Configuration Language (HCL) where
   * output (a value that should be reported to the user once provisioning is finished such as the IP address of a load balancer)
  
  ### `.tf` files
- Terraform expects that infrastructure and other "things" will be declared in files that end in a `.tf` extension. Terraform will determine
+ Terraform expects that infrastructure resources and other abstractions will be declared in files that end in a `.tf` extension. Terraform will determine
  the relationships between objects even if they are in different files and it doesn't impose restrictions on what resources can be defined
  where. If you want to create a database resource in a file called `network.tf` that's fine syntactically.
  
