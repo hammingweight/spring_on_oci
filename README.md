@@ -1,5 +1,5 @@
 # Spring Boot on Oracle Cloud Infrastructure (OCI)
-This repository contains a Spring Boot "Hello, World" REST application and scripts that deploy the application on Oracle Cloud Infrastructure. The deployed service uses 
+This repository contains a [Spring Boot](https://spring.io/projects/spring-boot) "Hello, World" REST application and scripts that deploy the application on [Oracle Cloud Infrastructure](https://cloud.oracle.com). The deployed service uses 
 only OCI free-tier resources.
 
 The goal of this project is to show how to provision and configure resources in OCI to host a Spring Boot application.
