@@ -4,3 +4,7 @@ resource "oci_identity_compartment" "compartment" {
     description = "Compartment for ${var.project_name}."
     name = var.project_name
 }
+
+output "compartment_ocid" {
+    value = oci_identity_compartment.compartment.id
+}
