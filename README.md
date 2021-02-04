@@ -81,13 +81,13 @@ PLAY RECAP *********************************************************************
 158.101.160.71             : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 localhost                  : ok=8    changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
-load_balancer_ip = "193.122.5.88"
+load_balancer_ip = "193.122.52.45"
 ```
 
 The IP address of the load balancer is needed to access the REST service. If you try accessing the service immediately, you'll probably see HTTP status code `502`
 
 ```
-$ curl -w '\n' -ks https://193.122.5.88/hello
+$ curl -w '\n' -ks https://193.122.52.45/hello
 <html>
 <head><title>502 Bad Gateway</title></head>
 <body bgcolor="white">
@@ -100,17 +100,17 @@ $ curl -w '\n' -ks https://193.122.5.88/hello
 After a few minutes, the load balancer should determine that the Spring Boot applications are healthy and API requests should succeed
 
 ```
-$ curl -w '\n' -ks https://193.122.5.88/hello
+$ curl -w '\n' -ks https://193.122.52.45/hello
 {"visits":1,"message":"Hello, world"}
-$ curl -w '\n' -ks https://193.122.5.88/hello
+$ curl -w '\n' -ks https://193.122.52.45/hello
 {"visits":2,"message":"Hello again, world"}
-$ curl -w '\n' -ks https://193.122.5.88/hello
+$ curl -w '\n' -ks https://193.122.52.45/hello
 {"visits":3,"message":"Hello again, world"}
-$ curl -w '\n' -ks https://193.122.5.88/hello/Alice
+$ curl -w '\n' -ks https://193.122.52.45/hello/Alice
 {"visits":1,"message":"Hello, Alice"}
-$ curl -w '\n' -ks https://193.122.5.88/hello/Alice
+$ curl -w '\n' -ks https://193.122.52.45/hello/Alice
 {"visits":2,"message":"Hello again, Alice"}
-$ curl -w '\n' -ks https://193.122.5.88/hello
+$ curl -w '\n' -ks https://193.122.52.45/hello
 {"visits":4,"message":"Hello again, world"}
 ```
 
