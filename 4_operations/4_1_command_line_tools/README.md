@@ -60,13 +60,64 @@ $ oci compute instance list-vnics -c ocid1.compartment.oc1..aaaaaaaa ... yq --qu
 Note the `--query 'data[*]."public-ip"'` parameter; the `oci` CLI supports a JSON query language known as [JMESPath](https://mespath.org) for extracting data
 from JSON documents.
 
-With the IP addresses and if we have the private key needed for SSH access to a VM, we can get a shell to the VM.
+With the IP addresses and if we have the private key needed for SSH access, we can get a shell to the VM.
 
-## `sqlcl
+## `sqlcl`
 As part of the [configuration](../../2_configure), we installed a SQL CLI,`sqlcl`, and a "wallet" on the servers. It's worth knowing how to use `sqlcl` if you're
 going to use an Oracle database in OCI. The snippet below shows how we can connect to the VM and then use the wallet and DB password to connect to the database
 to query and update data.
 
 ```
+$ ssh -i ../configuration_parameters_common/vm_ssh_key opc@130.61.54.217
+Last login: Thu Feb  4 10:14:02 2021
+[opc@inst-x68sc-demoinstancepool ~]$ /opt/oracle/sqlcl/bin/sql -cloudconfig demo_wallet.zip -L 'admin/S3cr3t?assword@demo_low'
 
+SQLcl: Release 20.4 Production on Thu Feb 04 10:26:10 2021
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Operation is successfully completed.
+Operation is successfully completed.
+Using temp directory:/tmp/oracle_cloud_config6162394520061030079
+Last Successful login time: Thu Feb 04 2021 10:26:16 +00:00
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.5.0.0.0
+
+
+SQL> -- count the number of unique visitors
+SQL> select count(*) from visitors;
+
+   COUNT(*)
+___________
+          2
+
+SQL> -- count the total number of visits
+SQL> select sum(num_visits) from visitors;
+
+   SUM(NUM_VISITS)
+__________________
+                 6
+
+SQL> -- view all visitors
+SQL> select * from visitors;
+
+    NAME    NUM_VISITS
+________ _____________
+alice                2
+world                4
+
+SQL> -- delete all records
+SQL> delete visitors;
+
+2 rows deleted.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.5.0.0.0
+[opc@inst-x68sc-demoinstancepool ~]$
 ```
