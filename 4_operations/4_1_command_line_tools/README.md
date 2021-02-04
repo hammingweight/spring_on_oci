@@ -38,14 +38,15 @@ Most commands require that you specify either the OCID of a resource or a compar
 $ oci compute instance list --compartment-id ocid1.compartment.oc1..aaaaaaaa ... yq
 ```
 
-That example would also return results for instances that have been terminated. The `oci` commands typically allow filtering. For example to get only running instances
+That example would also return results for instances that have been terminated. To get only running instances we can issue the previous command with a filter on the
+`lifecycle-state`
 
 ```
 $ oci compute instance list --compartment-id ocid1.compartment.oc1..aaaaaaaa ... yq --lifecycle-state="RUNNING"
 ```
 
 You might be surprised that listing instances does not show the public IP addresses of the instances. OCI resources do not exist in isolation but have relationships
-with other objects and you sometimes have to perform "joins" to get the information that you're after. An IP address is assigned to a VNIC and a VNIC is associated
+with other objects and you sometimes have to perform "joins" to get the information that you're after. An IP address is assigned to a VNIC and a VM is associated
 with a VNIC via a "VNIC attachment" resource. In this case, the CLI provides a short cut to list the IP addresses for all all VNICs. This query returns the
 IP addresses of our instances
 
@@ -70,7 +71,7 @@ to query and update data.
 ```
 $ ssh -i ../configuration_parameters_common/vm_ssh_key opc@130.61.54.217
 Last login: Thu Feb  4 10:14:02 2021
-[opc@inst-x68sc-demoinstancepool ~]$ /opt/oracle/sqlcl/bin/sql -cloudconfig demo_wallet.zip -L 'admin/S3cr3t?assword@demo_low'
+[opc@inst-x68sc-demoinstancepool ~]$ /opt/oracle/sqlcl/bin/sql -cloudconfig ./demo_wallet.zip -L 'admin/S3cr3t?assword@demo_low'
 
 SQLcl: Release 20.4 Production on Thu Feb 04 10:26:10 2021
 
@@ -121,3 +122,35 @@ SQL> Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0
 Version 19.5.0.0.0
 [opc@inst-x68sc-demoinstancepool ~]$
 ```
+
+We passed a reference to the wallet via the `cloudconfig` argument and connected to the database by passing credentials and an endpoint in the for
+<username>/password@<tns_entry>. "TNS" stands for "Transparent Network Substrate". If you want to know what TNS endpoints are available to connect to, you can
+run `SQLcl` without logging in and running `show tns`.
+  
+```
+[opc@inst-x68sc-demoinstancepool ~]$ /opt/oracle/sqlcl/bin/sql -cloudconfig demo_wallet.zip /nolog
+
+SQLcl: Release 20.4 Production on Thu Feb 04 10:58:33 2021
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Operation is successfully completed.
+Operation is successfully completed.
+Using temp directory:/tmp/oracle_cloud_config8430460485086305293
+
+SQL> show tns;
+TNS_ADMIN set to: /tmp/oracle_cloud_config8430460485086305293
+
+
+Available TNS Entries
+---------------------
+demo_high
+demo_low
+demo_medium
+demo_tp
+demo_tpurgent
+SQL>                   
+```
+
+Note that we also needed to supply a TNS entry when we populated the [application.yml](../../deploy/templates/application.yml) file so that Spring could connect to the
+database.
