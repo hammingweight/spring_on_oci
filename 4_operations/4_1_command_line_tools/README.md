@@ -62,8 +62,8 @@ from JSON documents.
 
 With the IP addresses and if we have the private key needed for SSH access, we can get a shell to the VM.
 
-## `sqlcl`
-As part of the [configuration](../../2_configure), we installed a SQL CLI,`sqlcl`, and a "wallet" on the servers. It's worth knowing how to use `sqlcl` if you're
+## `SQLcl`
+As part of the [configuration](../../2_configure), we installed a SQL CLI,`SQLcl`, and a "wallet" on the servers. It's worth knowing how to use `SQLcl` if you're
 going to use an Oracle database in OCI. The snippet below shows how we can connect to the VM and then use the wallet and DB password to connect to the database
 to query and update data.
 
