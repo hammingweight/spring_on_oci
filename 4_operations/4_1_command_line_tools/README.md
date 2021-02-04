@@ -35,13 +35,13 @@ oci <COMMAND> <RESOURCE_TYPE> <OPERATION>
 Most commands require that you specify either the OCID of a resource or a compartment. For example, to list all instances in a compartment
 
 ```
-$ oci compute instance list --compartment-id ocid1.compartment.oc1..aaaaaaaan ... yq
+$ oci compute instance list --compartment-id ocid1.compartment.oc1..aaaaaaaa ... yq
 ```
 
 That example would also return results for instances that have been terminated. The `oci` commands typically allow filtering. For example to get only running instances
 
 ```
-$ oci compute instance list --compartment-id ocid1.compartment.oc1..aaaaaaaanysgaxvgd3m7cs5yiwucdkfgckqeadbdmt3tyukcfpe6jr7snhyq --lifecycle-state="RUNNING"
+$ oci compute instance list --compartment-id ocid1.compartment.oc1..aaaaaaaa ... yq --lifecycle-state="RUNNING"
 ```
 
 You might be surprised that listing instances does not show the public IP addresses of the instances. OCI resources do not exist in isolation but have relationships
