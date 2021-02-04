@@ -26,5 +26,26 @@ It's a good idea to include `output` directives in your `.tf` files to emit fact
 [load_balancer.tf](../../1_provision/load_balancer.tf) files for examples.
 
 ## The `oci` CLI
+The OCI CLI is particularly useful for querying resources. The general form of a command is
+
+```
+oci <COMMAND> <RESOURCE_TYPE> <OPERATION>
+```
+
+Most commands require that you specify either the OCID of a resource or a compartment. For example, to list all instances in a compartment
+
+```
+$ oci compute instance list --compartment-id ocid1.compartment.oc1..aaaaaaaan ... yq
+```
+
+That example would also return results for instances that have been terminated. The `oci` commands typically allow filtering. For example to get only running instances
+
+```
+$ oci compute instance list --compartment-id ocid1.compartment.oc1..aaaaaaaanysgaxvgd3m7cs5yiwucdkfgckqeadbdmt3tyukcfpe6jr7snhyq --lifecycle-state="RUNNING"
+```
+
+You might be surprised that listing instances does not show the public IP addresses of the instances. OCI resources do not exist in isolation but have relationships
+with other objects and you sometimes have to perform "joins" to get the information that you're after. For example, to find the IP addresses of our instances, we
+have to know that IP addresses are assigned to VNICs (Virtual Network Interface Cards) via a `vnic-attachment`.
 
 ## `sqlcl`
