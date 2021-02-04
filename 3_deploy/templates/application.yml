@@ -10,7 +10,7 @@ spring:
 # This provides detailed information about health which can be useful to us.
 # Unfortunately it can be useful to hackers as well. If you're going to do this
 # you should probably set up a load balancer rewrite rule to rewrite /actuator
-# paths to redirect to a "forbiddern" or "not found" page.
+# paths to redirect to a "forbidden" or "not found" page.
 management:
   endpoint:
     health:
