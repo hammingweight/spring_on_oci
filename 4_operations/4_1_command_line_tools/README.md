@@ -152,5 +152,5 @@ demo_tpurgent
 SQL>                   
 ```
 
-Note that we also needed to supply a TNS entry when we populated the [application.yml](../../deploy/templates/application.yml) file so that Spring could connect to the
+Note that we also needed to supply a TNS entry when we populated the [application.yml](../../3_deploy/templates/application.yml) file so that Spring could connect to the
 database.
