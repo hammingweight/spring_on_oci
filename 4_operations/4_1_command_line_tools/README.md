@@ -25,6 +25,20 @@ load_balancer_ip = "193.122.5.88"
 It's a good idea to include `output` directives in your `.tf` files to emit facts that are useful. See the [compartment.tf](../../1_provision/compartment.tf) and
 [load_balancer.tf](../../1_provision/load_balancer.tf) files for examples.
 
+The `terraform` commands usually require that the variables needed by the terraform plans have been populated by running, e.g.,
+
+```
+$ source tf_vars.sh
+```
+
+The utility script [tf.sh](./tf.sh) can be used to source the variables before running `terraform`. For example,
+
+```
+$ cd 1_provision
+$ ../4_1_operations/4_1_command_line_tools/tf.sh show
+```
+
+
 ## The `oci` CLI
 The OCI CLI is particularly useful for querying resources. The general form of a command is
 
