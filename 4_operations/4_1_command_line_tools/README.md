@@ -35,7 +35,7 @@ The utility script [tf.sh](./tf.sh) can be used to source the variables before r
 
 ```
 $ cd 1_provision
-$ ../4_1_operations/4_1_command_line_tools/tf.sh show
+$ ../4_operations/4_1_command_line_tools/tf.sh show
 ```
 
 
