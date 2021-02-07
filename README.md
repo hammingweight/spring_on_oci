@@ -84,7 +84,7 @@ localhost                  : ok=8    changed=8    unreachable=0    failed=0    s
 load_balancer_ip = "193.122.14.139"
 ```
 
-The IP address of the load balancer is needed to access the REST service. If you try accessing the service immediately, you'll probably see HTTP status code `502`
+The IP address of the load balancer is needed to access the REST service. If you try accessing the service immediately, you'll probably get back HTTP status code `502`
 
 ```
 $ curl -w '\n' -ks https://193.122.14.139/hello
