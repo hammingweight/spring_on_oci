@@ -39,6 +39,13 @@ $ .tf.sh show
 ```
 
 
+## `ansible`
+The `ansible-playbook` script was used to execute playbooks consisting of many tasks to [configure](../../2_configure/configure.yml) the hosts and to
+[deploy](../../3_deploy/deploy.yml) our service. There are tools in the Ansible toolkit that are worth knowing about:
+ * `ansible` is a command line tool that lets the operator runa single task against hosts without packaging the task into a playbook.
+ * `ansible-inventory` which can be used to list all hosts in the inventory.
+ 
+
 ## The `oci` CLI
 The OCI CLI is particularly useful for querying resources. The general form of a command is
 
