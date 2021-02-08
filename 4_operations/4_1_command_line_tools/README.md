@@ -31,11 +31,11 @@ The `terraform` commands usually require that the variables needed by the terraf
 $ source tf_vars.sh
 ```
 
-The utility script [tf.sh](./tf.sh) can be used to source the variables before running `terraform`. For example,
+The utility script [tf.sh](../../1_provision/tf.sh) can be used to source the variables before running `terraform`. For example,
 
 ```
 $ cd 1_provision
-$ ../4_operations/4_1_command_line_tools/tf.sh show
+$ .tf.sh show
 ```
 
 
