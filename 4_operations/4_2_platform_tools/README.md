@@ -10,9 +10,9 @@ the application is unhealthy rather than have to poll the console or OCI API. To
  * An alarm which is triggered when some monitored object goes above a certain threshhold such as that the backend services are unhealthy or CPU utilization goes exceeds some limit.
  
  The easiest way to create alarms and notifications is via the console but they can also be created using Terraform or the CLI. The applicable CLI commands are:
-  * oci ons topic create.
-  * oci ons subscription create.
-  * oci monitoring alarm create.
+  * `oci ons topic create`.
+  * `oci ons subscription create`.
+  * `oci monitoring alarm create`.
   
   
 ## SQL Developer Web
