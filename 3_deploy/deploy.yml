@@ -58,11 +58,12 @@
         dest: /etc/systemd/system/{{ project_name }}.service
       become: True
 
-    - name: start service
+    - name: restart service
       systemd:
         name: "{{ project_name }}.service"
-        state: started
+        state: restarted
         enabled: True
+        daemon_reload: True
       become: True
     when: instance_tag in freeform_tags
 
