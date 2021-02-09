@@ -47,21 +47,6 @@
 
   tasks:
   - block:
-    - block:
-      - name: copy schema.sql
-        copy:
-          src: ./templates/schema.sql
-          dest: ~/schema.sql
-
-      - name: create schema
-        shell: /opt/oracle/sqlcl/bin/sql -cloudconfig /home/opc/{{ project_name }}_wallet.zip -L 'admin/"{{ database_admin_password }}"@{{ project_name }}_low' @/home/opc/schema.sql
-
-      - name: delete schema.sql
-        file:
-          path: ~/schema.sql
-          state: absent
-      run_once: True
-
     - name: copy jar
       copy:
         src: "{{ hostvars['localhost']['tempdir']['path'] }}/0_spring_application/target/{{ project_name }}-{{ project_version }}.jar"

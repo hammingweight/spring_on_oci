@@ -1,0 +1,28 @@
+---
+# A playbook to create the database scheme needed for the "hello, world" service.
+- hosts: all
+  gather_facts: false
+  vars:
+    instance_tag: "{{ project_name }}_instance"
+
+  tasks:
+  - block:
+    - block:
+      # Copy the schema SQL definition script to the host
+      - name: copy schema.sql
+        copy:
+          src: ./templates/schema.sql
+          dest: ~/schema.sql
+
+      # Create the schema by executing the SQL script.
+      - name: create schema
+        shell: /opt/oracle/sqlcl/bin/sql -cloudconfig /home/opc/{{ project_name }}_wallet.zip -L 'admin/"{{ database_admin_password }}"@{{ project_name }}_low' @/home/opc/schema.sql
+
+      # Remove the SQL script from the host
+      - name: delete schema.sql
+        file:
+          path: ~/schema.sql
+          state: absent
+      # Run once since we can't sreate the schema from more than one host.
+      run_once: True
+    when: instance_tag in freeform_tags
