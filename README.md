@@ -139,3 +139,6 @@ Deploying an application to any cloud Infrastructure-as-a-Service (IaaS) involve
  3. [Deploying.](./3_deploy) The application is built using Maven and deployed using Ansible.
   
   The code is also commented which might provide insights that the READMEs don't supply.
+
+Software is not finished when it's deployed. The [operations README](./4_operations) provides some pointers
+to tools that can be useful in operating, maintaining and debugging an application running in OCI.
