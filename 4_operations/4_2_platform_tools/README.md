@@ -14,8 +14,17 @@ the application is unhealthy rather than have to poll the console or OCI API. To
   * `oci ons subscription create`.
   * `oci monitoring alarm create`.
   
+ The corresponding Terraform resources are:
+  * `oci_ons_notificaton_topic`.
+  * `oci_ons_notification_subscription`.
+  * `oci_monitoring_alarm`.
+    
   
 ## SQL Developer Web
+The [configuration](../../2_configure) of our servers installed SQLcl and a database wallet on our servers. An alternative to use the SQLcl to administer the database is to use
+`SQL Developer Web`. To access `SQL Developer Web` from the OCI console, select your database from the Autonomous Transaction Processing page and then select the `Tools` tab.
 
 
 ## OCI Cloud Shell
+Creating a developern environment to access OCI can be time-consuming. Typically you need to install the oci CLI, generate an API signing key, installing Terraform and Ansible and probably install Git. If you use the browser-based terminal, `cloud shell`, all of those tools are installed for you. You don't even need to generate a signing key; instead the
+CLI uses a *delegation token* for authentication (open the OCI configuration file, `/etc/oci/config`, to see how the shell is cconfigured.)
