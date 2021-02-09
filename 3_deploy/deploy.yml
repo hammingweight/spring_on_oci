@@ -42,6 +42,10 @@
 
 - hosts: all
   gather_facts: false
+  # Run serially so that we don't stop all instances of an existing service if
+  # we're doing a new deployment. This is common practice if you're aiming for
+  # zero downtime.
+  serial: 1
   vars:
     instance_tag: "{{ project_name }}_instance"
 
