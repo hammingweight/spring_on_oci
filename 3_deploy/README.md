@@ -24,9 +24,9 @@ Deploying the "Hello, world" service to OCI involves three main tasks:
  password.
  
  The script should only be run on one host; it does not makes sense to try to create the schema from all of the compute instances. Ansible's `run_once: True` conditional
- is used to limit schema creation to running from only one VM.
+ is used to limit the schema creation to a single VM.
 
-To create the schema, we use the [ap.sh](../ansible_common/ap.sh) script that is a thin wrapper around `ansible-playbook`
+To run the `schema.yml` playbook, we use the [ap.sh](../ansible_common/ap.sh) script that is a thin wrapper around `ansible-playbook`
  
  ```
  ../ansible_common/ap.sh schema.yml
