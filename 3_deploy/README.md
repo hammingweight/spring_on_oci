@@ -13,8 +13,9 @@ Deploying the "Hello, world" service to OCI involves three main tasks:
  
  ## `schema.yml`
  ### Creating the database schema
- The [schema.sql file](./templates/schema.sql) contains a SQLcl script that should be run against the database to create the schema in the Autonomous Database. The
- `schema.yml` file runs the script by copying the schema file to one of the instances and then executing
+For a production deployment, it's a poor idea to package a `schema.sql` file with an application; instead the database schema should be created before running the
+application.  The [schema.sql file](./templates/schema.sql) defines the schema used by our Spring Boot application. The [schema.yml](./schema.yml) playbook creates
+the schema by copying the schema SQL file to one of the compute instances and then executing
  
  ```
  /opt/oracle/sqlcl/bin/sql -cloudconfig /home/opc/{{ project_name }}_wallet.zip -L 'admin/"{{ database_admin_password }}"@{{ project_name }}_low' @/home/opc/schema.sql
@@ -41,9 +42,9 @@ To run the `schema.yml` playbook, we use the [ap.sh](../ansible_common/ap.sh) sc
  [application.yml](./templates/application.yml) which will populate the password from an Ansible variable (`database_admin_password`) that is passed to the
  `ansible-playbook` script.
  
-For a production deployment, it's a poor idea to package a `schema.sql` file with an application; instead the database schema should be created before deploying the
-application. So, in the case of the `oci` profile we do not want a `schema.sql` file in the `resources` directory.
- 
+As noted in the previous section, in the case of the `oci` profile we do not want a `schema.sql` file in the `resources` directory so we should ensure that we do 
+not package the `schema.sql` used by the default (`local`) profile with our application.
+
 The `deploy.yml` playbook runs a task on the local machine that deletes the contents of the `src/main/resources` directory and then repopulates the
 `resources` directory with an `application.yml` file created from the application template. The playbook then builds the application by executing `mvnw package` with
 the `oci` profile.
