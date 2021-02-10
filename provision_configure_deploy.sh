@@ -37,7 +37,7 @@ $script_dir/ansible_common/ap.sh $script_dir/2_configure/configure.yml
 
 # Deploy the application to the servers
 echo "Creating database schema..."
-$script_dir/ansible_common/ap.sh $script_dir/3_deploy/database_schema.yml
+$script_dir/ansible_common/ap.sh $script_dir/3_deploy/schema.yml
 echo "Deploying Spring Boot service to the servers..."
 $script_dir/ansible_common/ap.sh $script_dir/3_deploy/deploy.yml
 
