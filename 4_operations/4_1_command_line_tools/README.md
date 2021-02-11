@@ -19,7 +19,7 @@ generates an enormous amount of output even for this small project. However the 
 Outputs:
 
 compartment_ocid = "ocid1.compartment.oc1..aaaaaaaa ... yq"
-load_balancer_ip = "193.122.5.88"
+load_balancer_ip = "193.122.63.175"
 ```
 
 It's a good idea to include `output` directives in your `.tf` files to emit facts that are useful. See the [compartment.tf](../../1_provision/compartment.tf) and
