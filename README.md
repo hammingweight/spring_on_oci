@@ -15,14 +15,14 @@ You'll also need Python 3 (it's included by default in many recent Linux distros
 The code *should* work in any free tier region but has been tested only in `eu-frankfurt-1`.
 
 ## What this code does
-The REST service is a toy example that exposes a `/hello/{name}` endpoint that returns how often a `GET` request has been performed against each `name` endpoint; e.g. how often the `/hello/alice` or `hello/bob` API endpoints have been invoked. The request counts are stored in a database; for local testing an H2 in-memory database is used while in OCI, an Oracle Autonomous database is used.
+The REST service is a toy example that exposes a `/hello/{name}` endpoint that returns how often a `GET` request has been performed against each `name` endpoint; e.g. how often the `/hello/alice` or `hello/bob` API endpoints have been invoked. The request counts are stored in a database; for local testing an H2 in-memory database is used while in OCI an Oracle Autonomous database is used.
 
 In the OCI environment, the code:
  * Provisions a virtual cloud network (VCN) with routing rules and security lists.
  * Instantiates two Oracle Linux VMs and installs Java on them.
  * Creates an Oracle Database and a "wallet" with credentials for accessing the database. The wallet is installed on both VMs to authenticate client requests to the database.
  * Deploys the Spring Boot application to both VMs.
- * Spins up a load balancer with a self-signed SSL certificate to round-robin requests to both VMs.
+ * Spins up a load balancer with a self-signed SSL certificate to round-robin requests to the VMs.
 
 ## Getting up and running quickly
 The subfolders in this repo have READMEs describing what the code in the folder does and how to execute it. If, however, you're impatient there's a script that provisions 
