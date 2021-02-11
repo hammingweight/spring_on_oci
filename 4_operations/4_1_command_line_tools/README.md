@@ -74,8 +74,8 @@ IP addresses of our instances
 ```
 $ oci compute instance list-vnics -c ocid1.compartment.oc1..aaaaaaaa ... yq --query 'data[*]."public-ip"'
 [
-  "130.61.54.217",
-  "158.101.168.72"
+  "130.61.188.32",
+  "130.61.189.70"
 ]
 ```
 
@@ -90,25 +90,25 @@ going to use an Oracle database in OCI. The snippet below shows how we can conne
 to query and update data.
 
 ```
-$ ssh -i ../configuration_parameters_common/vm_ssh_key opc@130.61.54.217
-Last login: Thu Feb  4 10:14:02 2021
-[opc@inst-x68sc-demoinstancepool ~]$ /opt/oracle/sqlcl/bin/sql -cloudconfig ./demo_wallet.zip -L 'admin/S3cr3t?assword@demo_low'
+$ ssh -i ../configuration_parameters_common/vm_ssh_key opc@130.61.188.32
+Last login: Thu Feb 11 04:21:11 2021 from 41.75.111.147
+[opc@inst-0zdaf-demoinstancepool ~]$ /opt/oracle/sqlcl/bin/sql -cloudconfig ./demo_wallet.zip -L 'admin/S3cr3t?assword@demo_low'
 
-SQLcl: Release 20.4 Production on Thu Feb 04 10:26:10 2021
+SQLcl: Release 20.4 Production on Thu Feb 11 04:35:34 2021
 
 Copyright (c) 1982, 2021, Oracle.  All rights reserved.
 
 Operation is successfully completed.
 Operation is successfully completed.
-Using temp directory:/tmp/oracle_cloud_config6162394520061030079
-Last Successful login time: Thu Feb 04 2021 10:26:16 +00:00
+Using temp directory:/tmp/oracle_cloud_config5891842159087229846
+Last Successful login time: Thu Feb 11 2021 04:35:42 +00:00
 
 Connected to:
 Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
 Version 19.5.0.0.0
 
 
-SQL> -- count the number of unique visitors
+SQL>  -- count the number of unique visitors
 SQL> select count(*) from visitors;
 
    COUNT(*)
@@ -127,8 +127,8 @@ SQL> select * from visitors;
 
     NAME    NUM_VISITS
 ________ _____________
-alice                2
 world                4
+alice                2
 
 SQL> -- delete all records
 SQL> delete visitors;
@@ -141,7 +141,7 @@ Commit complete.
 
 SQL> Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
 Version 19.5.0.0.0
-[opc@inst-x68sc-demoinstancepool ~]$
+[opc@inst-0zdaf-demoinstancepool ~]$
 ```
 
 We passed a reference to the wallet via the `cloudconfig` argument and connected to the database by passing credentials and an endpoint in the for
