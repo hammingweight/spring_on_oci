@@ -27,12 +27,14 @@ public class HelloController {
     private JdbcTemplate jdbcTemplate;
 
     @GetMapping()
+    // A shortcut for the "hello/world" URL.
     public Map<String, Object> sayHello() {
         return sayHello("world");
     }
 
-    // This method needs to be transactional since we query a row in the database in one call and
-    // then update it in a subsequent call so we need to lock the row in a transaction.
+    // This method needs to be transactional. We query a row in the database in one call and
+    // then update it in a subsequent call so we need to lock the row in a transaction to
+    // prevent race conditions between concurremt queries to the same endpoint..
     @Transactional
     @GetMapping("/{name}")
     public Map<String, Object> sayHello(@PathVariable("name") String name) {

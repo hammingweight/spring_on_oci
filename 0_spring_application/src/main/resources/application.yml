@@ -2,7 +2,7 @@
 # this configuration contains only the settings for "local"
 # testing. Our Ansible deployment script will replace this
 # file with an OCI-specificfile when we want to deploy to
-# the OCI cloud. The reason for not defining both profiles
+# the OCI cloud. The reasons for not defining both profiles
 # in this file are:
 # 1. The OCI application.yml file will need to include a DB
 #    password so the file shouldn't be under source control.
@@ -14,6 +14,8 @@
 server:
   port: 8000
 
+# We configure the application to return detailed information
+# about our application health.
 # This is not generally a good idea since it leaks information
 # that could be useful to an adversary.
 management:
