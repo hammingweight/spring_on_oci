@@ -149,18 +149,18 @@ We passed a reference to the wallet via the `cloudconfig` argument and connected
 run `SQLcl` without logging in and running `show tns`.
   
 ```
-[opc@inst-x68sc-demoinstancepool ~]$ /opt/oracle/sqlcl/bin/sql -cloudconfig demo_wallet.zip /nolog
+[opc@inst-0zdaf-demoinstancepool ~]$ /opt/oracle/sqlcl/bin/sql -cloudconfig demo_wallet.zip /nolog
 
-SQLcl: Release 20.4 Production on Thu Feb 04 10:58:33 2021
+SQLcl: Release 20.4 Production on Thu Feb 11 04:43:31 2021
 
 Copyright (c) 1982, 2021, Oracle.  All rights reserved.
 
 Operation is successfully completed.
 Operation is successfully completed.
-Using temp directory:/tmp/oracle_cloud_config8430460485086305293
+Using temp directory:/tmp/oracle_cloud_config3067693529660537264
 
 SQL> show tns;
-TNS_ADMIN set to: /tmp/oracle_cloud_config8430460485086305293
+TNS_ADMIN set to: /tmp/oracle_cloud_config3067693529660537264
 
 
 Available TNS Entries
@@ -170,7 +170,7 @@ demo_low
 demo_medium
 demo_tp
 demo_tpurgent
-SQL>                   
+SQL> 
 ```
 
 Note that we also needed to supply a TNS entry when we populated the [application.yml](../../3_deploy/templates/application.yml) file so that Spring could connect to the
