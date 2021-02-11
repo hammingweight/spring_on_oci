@@ -140,5 +140,5 @@ Deploying an application to any cloud Infrastructure-as-a-Service (IaaS) involve
   
   The code is also commented which might provide insights that the READMEs don't supply.
 
-Software is not finished when it's deployed. The [operations README](./4_operations) provides some pointers
-to tools that can be useful in operating, maintaining and debugging an application running in OCI.
+Software is not finished when it's deployed; the [operations README](./4_operations) provides some pointers
+to tools that can be useful in operating, maintaining and debugging an application running on OCI.
