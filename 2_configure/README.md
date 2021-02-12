@@ -9,11 +9,15 @@ The servers spun up in the [provisioning](../1_provision) stage need to be confi
 There are several configuration management tools like Puppet, Chef, Ansible and SaltStack. The preferred
 tool for configuring VMs in OCI is Ansible.
 
-Ansible scripts for configuring one or more hosts are written
-in YAML and are known as *playbooks*. In addition to the playbooks, a user also needs to create an *inventory*
-specifying the hosts and credentials for accessing the hosts and a configuration file, `ansible.cfg`.
+Ansible scripts for configuring one or more hosts are written in YAML and are known as *playbooks*.
+A playbook consists of a sequence of tasks which perform units of work like installing a package, running a
+script, creating a directory or deleting a file. Tasks can be supplied with an optional name that describes
+the operation being performed.
 
-To execute a playbook, the user runs the `ansible-playbbok` command which takes the name of a playbbok as well
+In addition to the playbooks, a user also needs to create an *inventory* specifying the hosts and credentials
+for accessing the hosts and a configuration file, `ansible.cfg`.
+
+To execute a playbook, the user runs the `ansible-playbook` command which takes the name of a playbook as well
 as optional arguments specifying variables that are needed by the playbook. A typical value that is passed
 via a variable is the port number for the "Hello, world" service so that a playbook can configure the firewall
 to accept packets destined for the port.
@@ -25,7 +29,7 @@ running in OCI.
 
 ### The Ansible inventory
 Ansible has the notions of *static* and *dynamic* inventories. Static inventories are, effectivley, lists of server names
-with corresponding IP addresses. Static inventories do not work well in cloud environments where IP addresses are
+with corresponding IP addresses. Static inventories do not work well in cloud environments where IP addresses may be
 dynamcially assigned and the number of servers can change as the infrastructure dynamically creates or deletes servers in
 response to demand. The [inventory](../ansible_common/inventory.oci.yml) file used for configuration is trivial since it
 uses the OCI inventory plugin to list all servers created.
