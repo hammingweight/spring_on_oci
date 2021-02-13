@@ -1,4 +1,5 @@
 ---
+# We build our application using Maven on the localhost.
 - hosts: localhost
   gather_facts: false
 
@@ -40,6 +41,9 @@
   - name: package spring application
     shell: cd {{ tempdir.path }}/0_spring_application && ./mvnw -Poci clean package
 
+
+# We need to deploy our Spring application to all OCI instances (that have
+# the correct freeform tag).
 - hosts: all
   gather_facts: false
   # Run serially so that we don't stop all instances of an existing service if
@@ -69,8 +73,12 @@
         enabled: True
         daemon_reload: True
       become: True
+    # Only run on correctly tagged instances.
     when: instance_tag in freeform_tags
 
+
+# Now that we've deployed the JAR we can clean up the build artifacts in
+# the temporary directory.
 - hosts: localhost
   gather_facts: false
 
