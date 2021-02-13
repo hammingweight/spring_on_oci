@@ -1,7 +1,13 @@
 ---
+# The Oracle Linux image that we use doesn't have Java and the
+# firewall is very locked down. We install Java, SQLcl and
+# open the firewall to allow traffic to the port that our
+# Spring service exposes.
 - hosts: all
   gather_facts: false
   vars:
+    # Our OCI instances were tagged during provisioning
+    # with a label, e.g. "demo_instance".
     instance_tag: "{{ project_name }}_instance"
 
   tasks:
@@ -26,6 +32,8 @@
         state: latest
       become: True
 
+    # Install the wallet for communicating with the database.
+    # The wallet is base64 encoded.
     - name: copy the wallet
       copy:
         src: ../1_provision/{{ project_name }}_wallet.zip.asc
@@ -49,4 +57,7 @@
       file:
         path: ~/{{ project_name }}_wallet.zip.asc
         state: absent
+    # We only want this script to run on the instances that have
+    # the expected tag. If we have other instances this script
+    # should ignore them.
     when: instance_tag in freeform_tags
