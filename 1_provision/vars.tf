@@ -1,4 +1,6 @@
 # vars.tf
+# Default values for these variables are defined in
+# tf_vars.sh.tmpl.
 variable tenancy_ocid {}
 
 variable config_file_profile {}

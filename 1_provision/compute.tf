@@ -1,8 +1,23 @@
+# compute.tf
+
+# This emits a list of all images that match a specified
+# display name.
 data "oci_core_images" "images" {
     compartment_id = oci_identity_compartment.compartment.id
     display_name = var.image_display_name
 }
 
+
+# This emits the availability domains in the operator's region.
+data "oci_identity_availability_domains" "ads" {
+    compartment_id = oci_identity_compartment.compartment.id
+}
+
+
+# Create an "instance configuration" that will be used as a
+# template for instances where all instances will use the same
+# shape, SSH key and the first image emitted by the directive
+# above.
 resource "oci_core_instance_configuration" "instance_configuration" {
     compartment_id = oci_identity_compartment.compartment.id
     freeform_tags = {"${var.project_name}_instance"= true}
@@ -26,10 +41,10 @@ resource "oci_core_instance_configuration" "instance_configuration" {
     display_name = "${var.project_name}_instance_config"
 }
 
-data "oci_identity_availability_domains" "ads" {
-    compartment_id = oci_identity_compartment.compartment.id
-}
 
+# Create a pool of instances based on the instance configuration
+# in a specified VCN subnet and where the instances should be
+# fronted by the load alancer created in load_balancer.tf
 resource "oci_core_instance_pool" "instance_pool" {
     compartment_id = oci_identity_compartment.compartment.id
     instance_configuration_id = oci_core_instance_configuration.instance_configuration.id

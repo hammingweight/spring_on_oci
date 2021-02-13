@@ -1,3 +1,4 @@
+#databse.tf
 # Create an ATP database.
 resource "oci_database_autonomous_database" "autonomous_database" {
     compartment_id = oci_identity_compartment.compartment.id
@@ -9,6 +10,7 @@ resource "oci_database_autonomous_database" "autonomous_database" {
     is_free_tier = true
 }
 
+
 # Create a password-protected wallet for the ATP
 resource "oci_database_autonomous_database_wallet" "autonomous_database_wallet" {
     autonomous_database_id = oci_database_autonomous_database.autonomous_database.id
@@ -16,6 +18,7 @@ resource "oci_database_autonomous_database_wallet" "autonomous_database_wallet" 
     base64_encode_content = true
     generate_type = "SINGLE"
 }
+
 
 # Download the wallet
 resource "local_file" "database_wallet_zip" {
