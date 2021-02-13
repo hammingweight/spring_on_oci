@@ -1,3 +1,4 @@
+# network.tf
 # We'll need a virtual cloud network (VCN) which should use a private IP
 # address range like 192.168.0.0/16
 resource "oci_core_vcn" "vcn" {
@@ -8,12 +9,14 @@ resource "oci_core_vcn" "vcn" {
     display_name = "${var.project_name}_vcn"
 }
 
+
 # Create an internet gateway for the VCN.
 resource "oci_core_internet_gateway" "internet_gateway" {
     display_name = "${var.project_name}_gateway"
     compartment_id = oci_identity_compartment.compartment.id
     vcn_id = oci_core_vcn.vcn.id
 }
+
 
 # All outgoing traffic will be routed via the internet gateway
 resource "oci_core_route_table" "route_table" {
@@ -27,9 +30,12 @@ resource "oci_core_route_table" "route_table" {
     }
 }
 
+
 # Allow traffic from the internet to connect via TCP (protocol=6)
-# on ports 22 (SSH) and the HTTP port used by our web service.
-# We also let through all traffic that originates from the VMs.
+# on port 22 (SSH). We also allow traffic to HTTP port used by
+# our web service but only from the load balancer subnet.
+# We allow all ioutgoingtraffic that originates from the VMs (which
+# is a little promiscuous).
 resource "oci_core_security_list" "instance_security_list" {
     display_name = "${var.project_name}_instance_security_rules"
     compartment_id = oci_identity_compartment.compartment.id
@@ -47,6 +53,7 @@ resource "oci_core_security_list" "instance_security_list" {
         }
     }
     ingress_security_rules {
+        # Allow SSH traffic from anywhere.
         stateless = false
         source = "0.0.0.0/0"
         protocol = "6"
@@ -56,15 +63,17 @@ resource "oci_core_security_list" "instance_security_list" {
         }
     }
     egress_security_rules {
+        # Allow all outgoing traffic. In practice we need to
+        # connect to a database and to a yum repository.
         stateless = false
         destination = "0.0.0.0/0"
         protocol = "all"
     }
 }
 
-# We'll create subnets within the VCN for our VMs and LB.
-# We'll also need to specify how traffic is to be routed and
-# security rules for the subnets.
+
+# Create a subnet for the instances and set the routing rules
+# and security list for the instance subnet.
 resource "oci_core_subnet" "instance_subnet" {
     display_name = "${var.project_name}_instance_subnet"
     compartment_id = oci_identity_compartment.compartment.id
@@ -74,7 +83,8 @@ resource "oci_core_subnet" "instance_subnet" {
     security_list_ids = [ oci_core_security_list.instance_security_list.id ]
 }
 
-# The only ingress traffic allowed to the LB is to the LB port (80).
+
+# The only ingress traffic allowed to the LB is to the LB port.
 # The only egress traffic is to the web services running on the VMs.
 resource "oci_core_security_list" "load_balancer_security_list" {
     display_name = "${var.project_name}_load_balancer_security_rules"
@@ -100,6 +110,9 @@ resource "oci_core_security_list" "load_balancer_security_list" {
     }
 }
 
+
+# Create a subnet for the load balancer and set the routing rules
+# and security list for the load balancer subnet.
 resource "oci_core_subnet" "load_balancer_subnet" {
     display_name = "${var.project_name}_load_balancer_subnet"
     compartment_id = oci_identity_compartment.compartment.id
