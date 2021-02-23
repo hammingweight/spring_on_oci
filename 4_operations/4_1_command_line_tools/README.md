@@ -13,7 +13,7 @@ $ cd 1_provision
 $ terraform show
 ```
 
-generates an enormous amount of output even for this small project. However the last lines emit
+generates an enormous amount of information even for this small project; the last lines show some useful details as "ouput".
 
 ```
 Outputs:
@@ -35,7 +35,7 @@ The utility script [tf.sh](../../1_provision/tf.sh) can be used to source the va
 
 ```
 $ cd 1_provision
-$ .tf.sh show
+$ ./tf.sh show
 ```
 
 
@@ -82,7 +82,7 @@ $ oci compute instance list-vnics -c ocid1.compartment.oc1..aaaaaaaa ... yq --qu
 Note the `--query 'data[*]."public-ip"'` parameter; the `oci` CLI supports a JSON query language known as [JMESPath](https://mespath.org) for extracting data
 from JSON documents.
 
-With the IP addresses and if we have the private key needed for SSH access, we can get a shell to the VM.
+With the IP addresses and using the private key needed for SSH access, we can get a shell to the VM.
 
 ## `SQLcl`
 As part of the [configuration](../../2_configure), we installed a SQL CLI,`SQLcl`, and a "wallet" on the servers. It's worth knowing how to use `SQLcl` if you're
