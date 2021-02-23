@@ -1,7 +1,8 @@
 # The "Hello, world" REST API
-This Spring Boot application has a single REST Controller, [HelloController](./src/main/java/com/example/demo/controllers/HelloController.java), that exposes two API
+This Spring Boot application has a single REST controller, [HelloController](./src/main/java/com/example/demo/controllers/HelloController.java), that exposes two API
 endpoints: `/hello` and `/hello/{name}` where the `/hello` endpoint is a shortcut for `/hello/world`. The controller interacts with a SQL database to store a count of
-the number of times that `/hello/{name}` is invoked.
+the number of times that `/hello/{name}` is invoked. The controller's response is a [JSON document](./src/main/java/com/example/demo/models/VisitorGreeting.java) that 
+contains a message and the invocation count.
 
 ## Building the application for a local versus an OCI deployment
 This project is built using Maven. It's common to have different profiles in a Maven POM file to handle different requirements in local versus production deployments. In
