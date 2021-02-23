@@ -7,7 +7,7 @@ backend servers to check that they're healthy and you can view the health of the
 the application is unhealthy rather than have to poll the console or OCI API. To get notifications requires that you create three OCI objects:
  * A notification topic which is a descriptive name for related issues that you want to be notified about.
  * A subscription that is associated with the topic which could be, e.g., an email subscription or a PagerDuty notification.
- * An alarm which is triggered when some monitored object goes above a certain threshhold such as that the backend services are unhealthy or CPU utilization goes exceeds some limit.
+ * An alarm which is triggered when some monitored object goes above a certain threshhold such as that the backend services are unhealthy or CPU utilization exceeds some limit.
  
  The easiest way to create alarms and notifications is via the console but they can also be created using Terraform or the CLI. The applicable CLI commands are:
   * `oci ons topic create`.
