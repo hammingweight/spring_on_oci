@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.VisitorGreeting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
@@ -10,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A REST controller that listens for GET requests to the /hello and /hello/{name} endpoints.
@@ -28,7 +27,7 @@ public class HelloController {
 
     @GetMapping()
     // A shortcut for the "hello/world" URL.
-    public Map<String, Object> sayHello() {
+    public VisitorGreeting sayHello() {
         return sayHello("world");
     }
 
@@ -37,25 +36,25 @@ public class HelloController {
     // prevent race conditions between concurremt queries to the same endpoint..
     @Transactional
     @GetMapping("/{name}")
-    public Map<String, Object> sayHello(@PathVariable("name") String name) {
+    public VisitorGreeting sayHello(@PathVariable("name") String name) {
         // SELECT ... FOR UPDATE so that we lock the row to prevent concurrent modifications.
         String sqlQuery = "SELECT num_visits FROM visitors WHERE name=? FOR UPDATE";
         List<BigDecimal>  numVisits = jdbcTemplate.query(sqlQuery, new SingleColumnRowMapper<>(), name);
-        Map<String, Object> map = new HashMap<>();
+        VisitorGreeting visitorGreeting = new VisitorGreeting();
         if (numVisits.size() == 0) {
 	    // If we got no results, then the name doesn't exist in the DB and we should insert it.
             String sqlInsert = "INSERT INTO visitors (name, num_visits) VALUES (?, 1)";
             jdbcTemplate.update(sqlInsert, name);
-            map.put("message", "Hello, " + name);
-            map.put("visits", 1);
+            visitorGreeting.setMessage("Hello, " + name);
+            visitorGreeting.setNumberOfVisits(1);
         } else {
 	    // The name exists. Increment the number of visits to the endpoint.
             BigDecimal count = numVisits.get(0).add(BigDecimal.ONE);
             String sqlUpdate = "UPDATE visitors SET num_visits=? WHERE name=?";
             jdbcTemplate.update(sqlUpdate, count, name);
-            map.put("message", "Hello again, " + name);
-            map.put("visits", count);
+            visitorGreeting.setMessage("Hello again, " + name);
+            visitorGreeting.setNumberOfVisits(count.intValue());
         }
-        return map;
+        return visitorGreeting;
     }
 }
