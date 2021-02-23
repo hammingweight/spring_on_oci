@@ -1,12 +1,12 @@
 # Spring Boot on Oracle Cloud Infrastructure (OCI)
 This repository contains a [Spring Boot](https://spring.io/projects/spring-boot) "Hello, World" REST application and scripts that deploy the application on [Oracle Cloud Infrastructure](https://cloud.oracle.com). The deployed service uses 
-only OCI free-tier resources.
+only OCI Free Tier resources.
 
 The goal of this project is to show how to provision and configure resources in OCI to host a Spring Boot application.
 
 ## Prerequisites
 You'll need:
- * An [OCI account](https://www.oracle.com/cloud/free/) in a region that supports Oracle Free tier (like eu-frankfurt-1, uk-london-1 or us-ashburn-1.)
+ * An [OCI account](https://www.oracle.com/cloud/free/) in a region that supports the free tier (like eu-frankfurt-1, uk-london-1 or us-ashburn-1.)
  * The [OCI CLI](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm)
  * [Terraform](https://www.terraform.io/downloads.html)
  
