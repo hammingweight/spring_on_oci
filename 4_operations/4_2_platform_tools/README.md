@@ -22,7 +22,7 @@ the application is unhealthy rather than have to poll the console or OCI API. To
   
 ## SQL Developer Web
 The [configuration](../../2_configure) of our servers installed SQLcl and a database wallet on our servers. An alternative to use the SQLcl to administer the database is to use
-`SQL Developer Web`. To access `SQL Developer Web` from the OCI console, select your database from the Autonomous Transaction Processing page and then select the `Tools` tab.
+`SQL Developer Web`. To access `SQL Developer Web` from the OCI console, select your database from the Autonomous Transaction Processing page and then select the `Service Console > Development > SQL Developer Web`.
 
 
 ## OCI Cloud Shell
