@@ -3,7 +3,7 @@ set -e
 
 # A script that provisions resources in OCI for a Spring
 # boot application and then configures the servers and
-# deployes the application to the servers.
+# deploys the application to the servers.
 
 # Check that the user has installed the OCI CLI
 if ! which oci
