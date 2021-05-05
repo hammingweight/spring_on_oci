@@ -30,7 +30,7 @@ infrastructure and then builds and deploys the service. Before running the scrip
 and downloaded the CLI, the first step is to configure your OCI credentials.
 
 ### Configure the OCI CLI
-For this step, you'll need to supply
+For this step, you'll need to have your OCI credentials; specifically you should know
  * Your user identifier (user OCID which is a value like `ocid1.user.oc1..aaaaaaaa...mna`)
  * Your tenancy identifier (tenancy OCID which is a value like `ocid1.tenancy.oc1..aaaaaa...tvq`)
  * Your OCI home region (e.g. `eu-frankfurt-1`) 
