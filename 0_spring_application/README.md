@@ -87,4 +87,4 @@ $ curl -w '\n' http://localhost:8000/hello
 {"visits":1,"message":"Hello, world"}
 ```
 
-Visting http://localhost:8000/h2 from a browser opens a console to manage and query the H2 database.
+Visiting http://localhost:8000/h2 from a browser opens a console to manage and query the H2 database.
