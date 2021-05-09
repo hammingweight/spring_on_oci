@@ -59,7 +59,7 @@ With default configuration, the key that you need to upload exists at the path `
 If you've installed Terraform, you can now deploy the application by running
 
 ```
-$ git clone git@github.com:hammingweight/spring_on_oci.git
+$ git clone https://github.com/hammingweight/spring_on_oci.git
 $ cd spring_on_oci/
 $ ./provision_configure_deploy.sh
 ```
