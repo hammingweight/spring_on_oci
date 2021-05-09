@@ -4,7 +4,7 @@ Deploying the "Hello, world" service to OCI involves three main tasks:
   * Using Maven to package the application with the `oci` profile.
   * Copying the packaged JAR to the OCI instances and running the JAR.
  
- All of the tasks are performed using Ansible in the [schema.yml'](./schema.yml) and [deploy.yml](./deploy.yml) playbooks. We separate the schema
+ All of the tasks are performed using Ansible in the [schema.yml](./schema.yml) and [deploy.yml](./deploy.yml) playbooks. We separate the schema
  creation from the application depolyment since, in practice, the application may undergo many revisions and we may want to deploy many iterative versions of
  the application while the database schema is likely to remain comparatively static. By separating schema creation from application deployment, we can run the
  deployment script regularly without trying to recreate the database schema on every new deployment.

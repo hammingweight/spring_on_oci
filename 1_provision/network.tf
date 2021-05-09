@@ -3,7 +3,7 @@
 # address range like 192.168.0.0/16
 resource "oci_core_vcn" "vcn" {
     # We're going to create the network in the compartment created by the
-    # iam.tf module.
+    # compartment.tf file.
     compartment_id = oci_identity_compartment.compartment.id
     cidr_block = "192.168.0.0/16"
     display_name = "${var.project_name}_vcn"
@@ -32,7 +32,7 @@ resource "oci_core_route_table" "route_table" {
 
 
 # Allow traffic from the internet to connect via TCP (protocol=6)
-# on port 22 (SSH). We also allow traffic to HTTP port used by
+# to port 22 (SSH). We also allow traffic to HTTP port used by
 # our web service but only from the load balancer subnet.
 # We allow all ioutgoingtraffic that originates from the VMs (which
 # is a little promiscuous).
