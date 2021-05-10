@@ -9,7 +9,9 @@ variable vm_ssh_key {}
 
 variable shape {}
 
-variable image_display_name {}
+variable image_operating_system {}
+
+variable image_operating_system_version {}
 
 variable load_balancer_bandwidth_in_mbps {}
 

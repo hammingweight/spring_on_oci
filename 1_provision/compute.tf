@@ -4,7 +4,10 @@
 # display name.
 data "oci_core_images" "images" {
     compartment_id = oci_identity_compartment.compartment.id
-    display_name = var.image_display_name
+    operating_system = var.image_operating_system
+    operating_system_version = var.image_operating_system_version
+    sort_by = "TIMECREATED"
+    sort_order = "DESC"
 }
 
 
