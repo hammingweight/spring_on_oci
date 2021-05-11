@@ -4,6 +4,7 @@
 # display name.
 data "oci_core_images" "images" {
     compartment_id = oci_identity_compartment.compartment.id
+    shape = var.shape
     operating_system = var.image_operating_system
     operating_system_version = var.image_operating_system_version
     sort_by = "TIMECREATED"
