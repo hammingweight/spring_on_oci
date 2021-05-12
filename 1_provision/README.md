@@ -68,6 +68,10 @@ $ source ../configuration_parameters_common/tf_vars.sh
 $ terraform destroy
 ```
 
+> **_NOTE:_**  
+> Before you can ssh into your running instances, you will need to upload the public ssh key `../configuration_parameters_common/vm_ssh_key.pub`.  
+> See [Connecting to an Instance](https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/accessinginstance.htm) to initiate a console connection.
+
 ### The Terraform Files
 #### `provider.tf`
 The [provider.tf](./provider.tf) file declares that we want to provision our infrastructure on OCI.
