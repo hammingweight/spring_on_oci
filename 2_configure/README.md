@@ -55,5 +55,5 @@ by playbooks. So, instead of invoking `ansible-playbook` directly to configure t
 ```
 
 ## Helpful resources
-* [OCI docs - Ansible](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/ansible.htm)
-* [Ansible docs - User Guide](https://docs.ansible.com/ansible/latest/user_guide/index.html#)
+* [OCI documentation - Ansible](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/ansible.htm)
+* [Ansible documentation - User Guide](https://docs.ansible.com/ansible/latest/user_guide/index.html#)
