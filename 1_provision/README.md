@@ -109,5 +109,5 @@ we define an "instance configuration" which is a blueprint that allows us to spi
  
  ## Helpful resources
 * [OCI documentation - Terraform](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraform.htm)
-* [Terraform documentation - Get Started (OCI)](https://learn.hashicorp.com/collections/terraform/oci-get-started)
+* [Terraform tutorial - Get Started (OCI)](https://learn.hashicorp.com/collections/terraform/oci-get-started)
 * [Terraform documentation - OCI Provider](https://registry.terraform.io/providers/hashicorp/oci/latest/docs)
