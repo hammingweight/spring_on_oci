@@ -87,4 +87,7 @@ $ curl -w '\n' http://localhost:8000/hello
 {"visits":1,"message":"Hello, world"}
 ```
 
+The application is built with [OpenAPI](https://swagger.io/specification/) support, so issuing a request against http://localhost:8000/v3/api-docs returns
+the specification for the REST API.
+
 Visiting http://localhost:8000/h2 from a browser opens a console to manage and query the H2 database.
