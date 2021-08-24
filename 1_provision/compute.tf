@@ -36,6 +36,10 @@ resource "oci_core_instance_configuration" "instance_configuration" {
                 ssh_authorized_keys = file(var.vm_ssh_key)
             }
             shape = var.shape
+            shape_config {
+                ocpus = 1
+                memory_in_gbs = 1
+            }
             source_details {
                 source_type = "image"
                 image_id = data.oci_core_images.images.images[0].id

@@ -26,10 +26,16 @@
         state: latest
       become: True
 
-    - name: install sqlcl
-      yum:
-        name: sqlcl
-        state: latest
+    # Hopefully an RPM for sqlcl will be available soon.  
+    - name: download sqlcl
+      get_url:
+        url: https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-21.1.1.113.1704.zip
+        dest: /home/opc/sqlcl.zip
+    - name: unzip sqlcl
+      unarchive:
+        src: /home/opc/sqlcl.zip
+        remote_src: True
+        dest: /usr/local/bin
       become: True
 
     # Install the wallet for communicating with the database.
