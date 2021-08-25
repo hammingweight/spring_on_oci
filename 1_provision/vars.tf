@@ -9,6 +9,10 @@ variable vm_ssh_key {}
 
 variable shape {}
 
+variable number_of_ocpus {}
+
+variable memory_in_gbs {}
+
 variable image_operating_system {}
 
 variable image_operating_system_version {}

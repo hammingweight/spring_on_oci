@@ -37,8 +37,8 @@ resource "oci_core_instance_configuration" "instance_configuration" {
             }
             shape = var.shape
             shape_config {
-                ocpus = 1
-                memory_in_gbs = 1
+                ocpus = var.number_of_ocpus
+                memory_in_gbs = var.memory_in_gbs
             }
             source_details {
                 source_type = "image"
