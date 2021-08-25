@@ -26,11 +26,18 @@
         state: latest
       become: True
 
-    # Hopefully an RPM for sqlcl will be available soon.  
+    # Hopefully an RPM for sqlcl will be available soon so that we don't need to jump
+    # through so many hoops to install it. 
     - name: download sqlcl
       get_url:
         url: https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-21.1.1.113.1704.zip
         dest: /home/opc/sqlcl.zip
+    - name: create directory for sqlcl
+      file:
+        path: /opt/oracle
+        state: directory
+        mode: '0755'
+      become: True
     - name: unzip sqlcl
       unarchive:
         src: /home/opc/sqlcl.zip
@@ -39,9 +46,14 @@
       become: True
     - name: create symlink for sqlcl
       file:
-        path: /opt/oracle/sqlcl/bin/sql
+        src: /opt/oracle/sqlcl/bin/sql
         dest: /usr/bin/sql
         state: link
+      become: True
+    - name: clean up sqlcl archive
+      file:
+        path: /home/opc/sqlcl.zip
+        state: absent
 
     # Install the wallet for communicating with the database.
     # The wallet is base64 encoded.
