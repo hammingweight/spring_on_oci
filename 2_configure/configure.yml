@@ -35,8 +35,13 @@
       unarchive:
         src: /home/opc/sqlcl.zip
         remote_src: True
-        dest: /usr/local/bin
+        dest: /opt/oracle
       become: True
+    - name: create symlink for sqlcl
+      file:
+        path: /opt/oracle/sqlcl/bin/sql
+        dest: /usr/bin/sql
+        state: link
 
     # Install the wallet for communicating with the database.
     # The wallet is base64 encoded.
