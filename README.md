@@ -76,18 +76,18 @@ the first run is dominated by installing dependencies into your local environmen
 At the end of the run, you should see output similar to
 
 ```
-PLAY RECAP **********************************************************************************************************
-130.61.188.32              : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-130.61.189.70              : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+PLAY RECAP *****************************************************************************************************************************************************************
+130.61.146.110             : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+130.61.237.168             : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 localhost                  : ok=8    changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
-load_balancer_ip = "193.122.63.175"
+load_balancer_ip = "129.159.198.174"
 ```
 
 The IP address of the load balancer is needed to access the REST service. If you try accessing the service immediately, you'll probably get back HTTP status code `502`
 
 ```
-$ curl -w '\n' -ks https://193.122.63.175/hello
+$ $ curl -w '\n' -ks https://129.159.198.174/hello
 <html>
 <head><title>502 Bad Gateway</title></head>
 <body bgcolor="white">
@@ -100,17 +100,17 @@ $ curl -w '\n' -ks https://193.122.63.175/hello
 After a few minutes, the load balancer should determine that the Spring Boot applications are healthy and API requests should succeed
 
 ```
-$ curl -w '\n' -ks https://193.122.63.175/hello
+$ curl -w '\n' -ks https://129.159.198.174/hello
 {"visits":1,"message":"Hello, world"}
-$ curl -w '\n' -ks https://193.122.63.175/hello
+$ curl -w '\n' -ks https://129.159.198.174/hello
 {"visits":2,"message":"Hello again, world"}
-$ curl -w '\n' -ks https://193.122.63.175/hello
+$ curl -w '\n' -ks https://129.159.198.174/hello
 {"visits":3,"message":"Hello again, world"}
-$ curl -w '\n' -ks https://193.122.63.175/hello/alice
+$ curl -w '\n' -ks https://129.159.198.174/hello/alice
 {"visits":1,"message":"Hello, alice"}
-$ curl -w '\n' -ks https://193.122.63.175/hello/alice
+$ curl -w '\n' -ks https://129.159.198.174/hello/alice
 {"visits":2,"message":"Hello again, alice"}
-$ curl -w '\n' -ks https://193.122.63.175/hello
+$ curl -w '\n' -ks https://129.159.198.174/hello
 {"visits":4,"message":"Hello again, world"}
 ```
 
