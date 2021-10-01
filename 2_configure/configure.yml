@@ -27,7 +27,7 @@
       become: True
 
     # Hopefully an RPM for sqlcl will be available soon so that we don't need to jump
-    # through so many hoops to install it. 
+    # through so many hoops to install it.
     - name: download sqlcl
       get_url:
         url: https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-21.1.1.113.1704.zip
