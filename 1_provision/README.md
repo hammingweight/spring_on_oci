@@ -74,8 +74,8 @@ The [provider.tf](./provider.tf) file declares that we want to provision our inf
 
 #### `compartment.tf`
 OCI has an idea of *compartments* which allows tenancies to be divided into compartments of grouped resources. The [`compartment.tf`](./compartment.tf) file creates
-a compartment that all resources (VM, networks, load balancers, etc) will be created in. Many of the other files will reference the compartment created with
-assignments with assignments like this:
+a compartment that all resources (VM, networks, load balancers, etc) will be created in. Many of the other files will reference
+the compartment created with assignments like this:
 
 ```
 compartment_id = oci_identity_compartment.compartment.id
