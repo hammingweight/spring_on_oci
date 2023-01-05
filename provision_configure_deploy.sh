@@ -37,6 +37,8 @@ terraform init
 terraform apply --auto-approve
 
 # Configure the servers
+echo "Sleeping for 2 minutes to allow the VM ssh daemons time to start..."
+sleep 120
 echo "Configuring the servers..."
 $script_dir/ansible_common/ap.sh $script_dir/2_configure/configure.yml
 
