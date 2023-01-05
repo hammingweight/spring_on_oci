@@ -13,7 +13,7 @@
   tasks:
   - block:
     - name: open firewall for the spring service
-      firewalld:
+      ansible.posix.firewalld:
         port: "{{ webservice_port }}/tcp"
         state: enabled
         immediate: True

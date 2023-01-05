@@ -97,5 +97,5 @@ fi
 if [ ! -e $this_dir/load_balancer_key.pem ]
 then
     echo "Generating an SSL key and self-signed certificate for the load balancer..."
-    openssl req -nodes -new -x509 -keyout $this_dir/load_balancer_key.pem -out $this_dir/load_balancer_cert.pem -subj "/C=/ST=/L=/O=/CN=example.com" -days 365
+    openssl req -nodes -new -x509 -keyout $this_dir/load_balancer_key.pem -out $this_dir/load_balancer_cert.pem -subj "/C=/ST=/L=/O=/CN=example.com" -days 1826
 fi
